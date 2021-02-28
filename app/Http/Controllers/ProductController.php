@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Jobs\Product\HandleStoreProduct;
+use App\Jobs\Product\HandleUpdateProduct;
 use App\Repositories\Contracts\ProductRepositoryInterface;
 use App\Services\ProductService;
 use Illuminate\Support\Facades\DB;
@@ -34,20 +36,8 @@ class ProductController extends Controller
 
     public function store(StoreProductRequest $request)
     {
-        DB::beginTransaction();
-
-        try{
-            $data = $request->all();
-            $responseData = $this->productRepository->create($data);
-            DB::commit();
-            return response()->success(200, null, $responseData);
-        }catch(\Exception $e) {
-            DB::rollback();
-            return response()->error(null, $e->getMessage());
-        }catch(\Throwable $e){
-            DB::rollback();
-            return response()->error(null, $e->getMessage());
-        }
+        HandleStoreProduct::dispatch($request->products);
+        return response()->success(200, 'Products were sent to a queue');
     }
 
     public function show($id)
@@ -64,19 +54,8 @@ class ProductController extends Controller
 
     public function update(UpdateProductRequest $request, $id)
     {
-        DB::beginTransaction();
-        try{
-            $data = $request->all();
-            $responseData = $this->productRepository->update($id, $data);
-            DB::commit();
-            return response()->success(200, null, $responseData);
-        }catch(\Exception $e){
-            DB::rollBack();
-            return response()->error(null, $e->getMessage());
-        }catch(\Throwable $e){
-            DB::rollBack();
-            return response()->error(null, $e->getMessage());
-        }
+        HandleUpdateProduct::dispatch($request->products);
+        return response()->success(200, 'Products to update were sent to a queue');
     }
 
     public function destroy($id)

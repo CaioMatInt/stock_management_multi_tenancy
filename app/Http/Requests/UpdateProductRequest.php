@@ -24,15 +24,12 @@ class UpdateProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'sometimes|email|unique:users,email,' . $this->user . ',deleted_at,NULL',
-            'name' => 'sometimes|string',
-            'image_path' => 'sometimes|string',
-            'quantity' => 'required|int',
-            'company_id' => 'required|exists:company,id',
-            'user_id' => 'required|exists:users,id',
-            'price' => 'required|numeric',
-            'sku' => 'required|string|unique: products, sku' . $this->user . ',deleted_at,NULL',
-
+            'product.*.name' => 'sometimes|string',
+            'product.*.image_path' => 'sometimes|string',
+            'product.*.quantity' => 'required|int',
+            'product.*.user_id' => 'required|exists:users,id',
+            'product.*.price' => 'required|numeric',
+            'product.*.sku' => 'required|string|unique: products, sku' . $this->user . ',deleted_at,NULL',
         ];
     }
 }

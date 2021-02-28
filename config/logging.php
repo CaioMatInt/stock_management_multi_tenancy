@@ -99,6 +99,18 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+
+        'store_product_log' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/store_product_log_'.date('d-m-Y').'.log'),
+            'level' => 'debug',
+        ],
+
+        'update_product_log' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/update_product_log_'.date('d-m-Y').'.log'),
+            'level' => 'debug',
+        ]
     ],
 
 ];

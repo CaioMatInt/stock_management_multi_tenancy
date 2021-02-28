@@ -25,7 +25,6 @@ class StoreProductQuantityHistoryRequest extends FormRequest
     {
         return [
             'quantity' => 'required|int',
-            'company_id' => 'required|exists:company,id',
             'user_id' => 'required|exists:users,id',
             'product_id' => 'required|exists:products,id'
         ];
