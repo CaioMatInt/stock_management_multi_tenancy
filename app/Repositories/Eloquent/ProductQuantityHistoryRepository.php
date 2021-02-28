@@ -16,4 +16,9 @@ class ProductQuantityHistoryRepository extends AbstractRepository implements Pro
         $this->model = $model;
     }
 
+    public function getByProductId(int $productId)
+    {
+        return $this->model->where('product_id', $productId);
+    }
+
 }

@@ -27,7 +27,12 @@ Route::middleware(['auth:sanctum'])->prefix('users')->group(function () {
     Route::get('/account-confirmation/{token}', 'UserController@accountConfirmation');
 });
 
-Route::middleware(['auth:sanctum'])->get('/users/{user}', [UserController::class, 'show'])->name('users.show');
-Route::middleware(['auth:sanctum'])->post('/users', [UserController::class, 'update'])->name('users.update');
 Route::middleware(['auth:sanctum'])->resource('products', ProductController::class);
-Route::middleware(['auth:sanctum'])->resource('product-quantity-history', ProductQuantityHistoryController::class)->except('update');
+
+Route::middleware(['auth:sanctum'])->prefix('users')->group(function () {
+    Route::get('/', [ProductQuantityHistoryController::class, 'index'])->name('product-quantity-history.index');
+    Route::get('/get-by-product-id/{product_id}', [ProductQuantityHistoryController::class, 'getByProductId'])->name('product-quantity-history.get-by-product-id');
+});
+
+
+

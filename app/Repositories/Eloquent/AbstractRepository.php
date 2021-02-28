@@ -60,7 +60,7 @@ abstract class AbstractRepository
 
     public function findWhere($field, $value)
     {
-        return $this->model->where($field, $value)->find();
+        return $this->model->where($field, $value)->first();
     }
 
     public function findWithRelationships($id, $relationships)
