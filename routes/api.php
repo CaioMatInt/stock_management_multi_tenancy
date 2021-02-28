@@ -1,7 +1,10 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\AuthController;
+use \App\Http\Controllers\UserController;
+use \App\Http\Controllers\ProductController;
+use \App\Http\Controllers\ProductQuantityHistoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +17,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::post('login', [AuthController::class, 'login'])->name('login');
+
+Route::middleware(['auth:sanctum'])->prefix('users')->group(function () {
+    Route::get('/show-logged-user-data', [UserController::class, 'showLoggedUserData'])->name('users.showLoggedUserData');
+    Route::post('/register', [UserController::class, 'store'])->name('users.store');
+    Route::post('/update', [UserController::class, 'update'])->name('users.update');
+    Route::get('/account-confirmation/{token}', 'UserController@accountConfirmation');
 });
+
+Route::middleware(['auth:sanctum'])->get('/users/{user}', [UserController::class, 'show'])->name('users.show');
+Route::middleware(['auth:sanctum'])->post('/users', [UserController::class, 'update'])->name('users.update');
+Route::middleware(['auth:sanctum'])->resource('products', ProductController::class);
+Route::middleware(['auth:sanctum'])->resource('product-quantity-history', ProductQuantityHistoryController::class)->except('update');
