@@ -11,6 +11,7 @@ class ProductQuantityHistory extends Model
     use SoftDeletes;
     use TenantModelTrait;
     public $timestamps = true;
+    public $table = 'product_quantities_history';
 
     protected $fillable = [
         'quantity',

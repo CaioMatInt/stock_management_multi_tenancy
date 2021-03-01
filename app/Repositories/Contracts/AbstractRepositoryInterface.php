@@ -12,29 +12,33 @@ interface AbstractRepositoryInterface
 
     public function getIn($key, array $values);
 
-    public function getAllWithRelationships($relationships);
+    public function getAllWithRelationships(array $relationships);
 
-    public function getAllPaginated($records_per_page);
+    public function getAllPaginated(array $records_per_page);
 
-    public function getAllPaginatedWithRelationships($records_per_page, $relationships);
+    public function getAllPaginatedWithRelationships(int $records_per_page, array $relationships);
 
-    public function find($id);
+    public function find(int $id);
 
-    public function findWhere($field, $value);
+    public function findWhere(string $field, $value);
 
-    public function findWithRelationships($id, $relationships);
+    public function findWithRelationships(int $id, array $relationships);
 
-    public function create($data);
+    public function create(array $data);
 
-    public function update($id, $data);
+    public function update(int $id, array $data);
 
-    public function delete($id);
+    public function delete(int $id);
 
     public function count();
 
-    public function getIdBySlug($slug);
+    public function getIdBySlug(string $slug);
 
-    public function getSlugById($id);
+    public function getSlugById(int $id);
+
+    public function findMultipleWhere(array $params);
+
+    public function findMultipleWhereAndMultipleConditinal(array $params);
 
 
 }

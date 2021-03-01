@@ -13,12 +13,12 @@ class Product extends Model
     use TenantModelTrait;
     public $timestamps = true;
 
-    public static function boot()
+  /*  public static function boot()
     {
         static::observe(
             app(ProductObserver::class)
         );
-    }
+    }*/
 
     protected $fillable = [
         'name',
@@ -26,7 +26,8 @@ class Product extends Model
         'user_id',
         'company_id',
         'image_path',
-        'sku'
+        'sku',
+        'quantity'
     ];
 
     protected $hidden = [

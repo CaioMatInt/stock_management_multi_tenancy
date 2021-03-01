@@ -24,7 +24,7 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'sometimes|email|unique:users,email,' . $this->user . ',deleted_at,NULL',
+            'email' => 'sometimes|email|unique:users,email,' . $this->user_id,
             'name' => 'sometimes|string',
             'image_path' => 'sometimes|string',
         ];

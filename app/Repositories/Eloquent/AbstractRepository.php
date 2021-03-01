@@ -38,48 +38,70 @@ abstract class AbstractRepository
         return $this->model->whereIn($key, $values)->get();
     }
 
-    public function getAllWithRelationships($relationships)
+    public function getAllWithRelationships(array $relationships)
     {
         return $this->model->with($relationships)->get();
     }
 
-    public function getAllPaginated($records_per_page)
+    public function getAllPaginated(array $records_per_page)
     {
         return $this->model->paginate($records_per_page);
     }
 
-    public function getAllPaginatedWithRelationships($records_per_page, $relationships)
+    public function getAllPaginatedWithRelationships(int $records_per_page, array $relationships)
     {
         return $this->model->with($relationships)->paginate($records_per_page);
     }
 
-    public function find($id)
+    public function find(int $id)
     {
         return $this->model->find($id);
     }
 
-    public function findWhere($field, $value)
+    public function findWhere(string $field, $value)
     {
         return $this->model->where($field, $value)->first();
     }
 
-    public function findWithRelationships($id, $relationships)
+    public function findMultipleWhere(array $params)
+    {
+        $builder = $this->model;
+
+        foreach($params as $param){
+            $builder->where($param['field'], $param['value']);
+        }
+
+        return $builder->first();
+    }
+
+    public function findMultipleWhereAndMultipleConditinal(array $params)
+    {
+        $builder = $this->model;
+
+        foreach($params as $param){
+            $builder = $builder->where($param['field'], $param['conditional'] , $param['value']);
+        }
+        return $builder->get();
+    }
+
+
+    public function findWithRelationships(int $id, array $relationships)
     {
         return $this->model->with($relationships)->find($id);
     }
 
-    public function create($data)
+    public function create(array $data)
     {
         return $this->model->create($data);
     }
 
-    public function update($id, $data)
+    public function update(int $id,array $data)
     {
         $this->model->find($id)->update($data);
         return $this->model->find($id);
     }
 
-    public function delete($id)
+    public function delete(int $id)
     {
         return $this->model->find($id)->delete();
     }
@@ -89,13 +111,13 @@ abstract class AbstractRepository
     }
 
     //This function find one element by some field and value
-    public function getIdBySlug($slug)
+    public function getIdBySlug(string $slug)
     {
         return $this->model->select('id')->where('slug', $slug)->first()->id;
     }
 
     //This function find one element by some field and value
-    public function getSlugById($id)
+    public function getSlugById(int $id)
     {
         return $this->model->find($id)->slug;
     }

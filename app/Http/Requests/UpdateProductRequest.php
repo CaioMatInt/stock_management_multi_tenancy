@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Repositories\Eloquent\ProductRepository;
+use App\Rules\ProductSkuRule;
 use Illuminate\Foundation\Http\FormRequest;
+
 
 class UpdateProductRequest extends FormRequest
 {
@@ -21,16 +24,16 @@ class UpdateProductRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules($products)
     {
         return [
-            'product.*.id' => 'required|exists: products, id',
-            'product.*.name' => 'sometimes|string',
-            'product.*.image_path' => 'sometimes|string',
-            'product.*.quantity' => 'required|int',
-            'product.*.user_id' => 'required|exists:users,id',
-            'product.*.price' => 'required|numeric',
-            'product.*.sku' => 'required|string|unique: products, sku' . $this->user . ',deleted_at,NULL',
+            'products.*.id' => 'required|exists:products,id',
+            'products.*.name' => 'sometimes|string',
+            'products.*.image_path' => 'sometimes|string',
+            'products.*.quantity' => 'required|int',
+            'products.*.price' => 'required|numeric',
+            'products.*.sku' => ['required','string', new ProductSkuRule(resolve(ProductRepository::class), $products)],
         ];
     }
+
 }

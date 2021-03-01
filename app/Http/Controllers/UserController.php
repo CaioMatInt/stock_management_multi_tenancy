@@ -19,13 +19,26 @@ class UserController extends Controller
         $this->userRepository = $userRepository;
     }
 
-    public function store(StoreUserRequest $request)
+    public function index()
+    {
+        try {
+            $responseData = $this->userRepository->getAll();
+            return response()->success(200, null, $responseData);
+        }catch(\Exception $e){
+            return response()->error(null, $e->getMessage());
+        }catch(\Throwable $e){
+            return response()->error(null, $e->getMessage());
+        }
+
+    }
+
+    public function register(StoreUserRequest $request)
     {
         DB::beginTransaction();
 
         try{
             $data = $request->all();
-            $responseData = $this->userRepository->create($data);
+            $responseData = $this->userService->create($data);
             DB::commit();
             return response()->success(200, null, $responseData);
         }catch(\Exception $e) {
@@ -54,7 +67,7 @@ class UserController extends Controller
         DB::beginTransaction();
         try{
             $data = $request->all();
-            $responseData = $this->userRepository->update($id, $data);
+            $responseData = $this->userService->update($id, $data);
             DB::commit();
             return response()->success(200, null, $responseData);
         }catch(\Exception $e){

@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Gateways\Paypal\StorePaypalOrderRequest;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Jobs\Product\HandleStoreProduct;
 use App\Jobs\Product\HandleUpdateProduct;
 use App\Repositories\Contracts\ProductRepositoryInterface;
 use App\Services\ProductService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -34,10 +38,23 @@ class ProductController extends Controller
 
     }
 
-    public function store(StoreProductRequest $request)
+    public function bulkStore(StoreProductRequest $request)
     {
-        HandleStoreProduct::dispatch($request->products);
-        return response()->success(200, 'Products were sent to a queue');
+        DB::beginTransaction();
+        try {
+            foreach($request->products as $product) {
+                $this->productRepository->create($product);
+            }
+            DB::commit();
+        } catch (\Exception $e) {
+           dd($e);
+        } catch (\Throwable $e) {
+            dd($e);
+        }
+
+
+       /* HandleStoreProduct::dispatch($request->products);
+        return response()->success(200, 'Products were sent to a queue');*/
     }
 
     public function show($id)
@@ -55,16 +72,35 @@ class ProductController extends Controller
         }
     }
 
-    public function update(UpdateProductRequest $request)
+    public function bulkUpdate(Request $request)
     {
-        HandleUpdateProduct::dispatch($request->products);
-        return response()->success(200, 'Products to update were sent to a queue');
+
+        $validatorRequest = new UpdateProductRequest();
+
+        Validator::make($request->all(), $validatorRequest->rules($request->products))->validate();
+
+
+        dd('validator');
+        DB::beginTransaction();
+        try {
+            foreach($request->products as $product) {
+                $this->productRepository->update($product['id'], $product['data']);
+            }
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd($e);
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            dd($e);
+        }
+        /*HandleUpdateProduct::dispatch($request->products);
+        return response()->success(200, 'Products to update were sent to a queue');*/
     }
 
     public function destroy($id)
     {
         DB::beginTransaction();
-
         try{
             $this->productRepository->delete($id);
             DB::commit();

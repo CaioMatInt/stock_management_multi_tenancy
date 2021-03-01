@@ -4,7 +4,6 @@ namespace App\Repositories\Eloquent;
 
 use App\Models\User;
 use App\Repositories\Contracts\UserRepositoryInterface;
-use Carbon\Carbon;
 
 class UserRepository extends AbstractRepository implements UserRepositoryInterface
 {

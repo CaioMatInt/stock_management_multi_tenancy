@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('QUEUE_CONNECTION', 'sync'),
+    'default' => env('QUEUE_CONNECTION', 'redis'),
 
     /*
     |--------------------------------------------------------------------------
@@ -59,12 +59,29 @@ return [
             'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
         ],
 
-        'redis' => [
+        'predis' => [
             'driver' => 'redis',
             'connection' => 'default',
-            'queue' => env('REDIS_QUEUE', 'default'),
+            'queue' => '{default}',
             'retry_after' => 90,
-            'block_for' => null,
+
+            'client' => env('REDIS_CLIENT', 'predis'),
+
+            'default' => [
+                'host' => env('REDIS_HOST', 'localhost'),
+                'password' => env('REDIS_PASSWORD', null),
+                'port' => env('REDIS_PORT', 6379),
+                'database' => 0,
+                'read_write_timeout' => 60,
+            ],
+
+            'cache' => [
+                'host' => env('REDIS_HOST', 'localhost'),
+                'password' => env('REDIS_PASSWORD', null),
+                'port' => env('REDIS_PORT', 6379),
+                'database' => env('REDIS_CACHE_DB', 1),
+            ],
+
         ],
 
     ],

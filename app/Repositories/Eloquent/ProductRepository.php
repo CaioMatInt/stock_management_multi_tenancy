@@ -14,4 +14,14 @@ class ProductRepository extends AbstractRepository implements ProductRepositoryI
         $this->model = $model;
     }
 
+    public function create(array $data)
+    {
+        $data['user_id'] = auth()->user()->id;
+        return $this->model->create($data);
+    }
+
+    public function findBySku(string $sku)
+    {
+        return $this->model->where('sku', $sku)->first();
+    }
 }
