@@ -38,7 +38,7 @@ interface AbstractRepositoryInterface
 
     public function findMultipleWhere(array $params);
 
-    public function findMultipleWhereAndMultipleConditinal(array $params);
+    public function findMultipleWhereAndMultipleConditional(array $params);
 
 
 }

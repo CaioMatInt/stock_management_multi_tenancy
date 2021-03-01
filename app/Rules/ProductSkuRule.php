@@ -38,7 +38,7 @@ class ProductSkuRule implements Rule
         $currentArrayPositionOfProductsArray = $explodedAttribute[1];
         $productIdToIgnoreOnValidation = $this->products[$currentArrayPositionOfProductsArray]['id'];
 
-        $productsBySkuIgnoringCurrentProductId = $this->productRepository->findMultipleWhereAndMultipleConditinal([
+        $productsBySkuIgnoringCurrentProductId = $this->productRepository->findMultipleWhereAndMultipleConditional([
             0 => ['field' => 'sku', 'conditional' => '=', 'value' => $value],
             1 => ['field' => 'id', 'conditional' => '!=', 'value' => $productIdToIgnoreOnValidation],
         ]);

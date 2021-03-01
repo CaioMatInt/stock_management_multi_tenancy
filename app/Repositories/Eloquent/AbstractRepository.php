@@ -74,7 +74,7 @@ abstract class AbstractRepository
         return $builder->first();
     }
 
-    public function findMultipleWhereAndMultipleConditinal(array $params)
+    public function findMultipleWhereAndMultipleConditional(array $params)
     {
         $builder = $this->model;
 
