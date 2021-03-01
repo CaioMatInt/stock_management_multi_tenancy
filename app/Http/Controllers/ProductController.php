@@ -44,6 +44,9 @@ class ProductController extends Controller
     {
         try{
             $responseData = $this->productRepository->find($id);
+            if(empty($responseData)){
+                return response()->error(404, 'Product not found');
+            }
             return response()->success(200, null, $responseData);
         }catch(\Exception $e){
             return response()->error(null, $e->getMessage());
@@ -52,7 +55,7 @@ class ProductController extends Controller
         }
     }
 
-    public function update(UpdateProductRequest $request, $id)
+    public function update(UpdateProductRequest $request)
     {
         HandleUpdateProduct::dispatch($request->products);
         return response()->success(200, 'Products to update were sent to a queue');

@@ -22,7 +22,7 @@ class CreateProductsTable extends Migration
             $table->integer('quantity');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('company_id')->index();
             $table->foreign('company_id')->references('id')->on('companies');
             $table->timestamps();
             $table->softDeletes();
