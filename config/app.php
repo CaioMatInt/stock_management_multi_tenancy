@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\RepositoryInterfaceServiceProvider::class,
         App\Providers\ResponseMacroServiceProvider::class,
+        \App\Providers\ProductModelServiceProvider::class,
 
     ],
 

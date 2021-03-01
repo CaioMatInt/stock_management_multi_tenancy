@@ -13,13 +13,6 @@ class Product extends Model
     use TenantModelTrait;
     public $timestamps = true;
 
-  /*  public static function boot()
-    {
-        static::observe(
-            app(ProductObserver::class)
-        );
-    }*/
-
     protected $fillable = [
         'name',
         'price',
