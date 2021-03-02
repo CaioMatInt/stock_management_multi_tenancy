@@ -40,12 +40,15 @@ class ProductObserver
      */
     public function updated(Product $product)
     {
-        $prepare['product_id'] = $product->id;
-        $prepare['quantity'] = $product->quantity;
-        $prepare['user_id'] = $product->user_id;
-        $prepare['company_id'] = $product->company_id;
+        $lastProductUpdate = $this->productQuantityHistoryRepository->findLastProductUpdateByProductId($product->id);
 
-        $this->productQuantityHistoryRepository->create($prepare);
+        if($lastProductUpdate->quantity !== $product->quantity) {
+            $prepare['product_id'] = $product->id;
+            $prepare['quantity'] = $product->quantity;
+            $prepare['user_id'] = $product->user_id;
+            $prepare['company_id'] = $product->company_id;
+            $this->productQuantityHistoryRepository->create($prepare);
+        }
     }
 
     /**

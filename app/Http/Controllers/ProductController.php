@@ -80,6 +80,14 @@ class ProductController extends Controller
         }
     }
 
+    public function bulkUpdate(Request $request)
+    {
+        $validatorRequest = new BulkUpdateProductRequest();
+        Validator::make($request->all(), $validatorRequest->rules($request->products))->validate();
+        HandleUpdateProduct::dispatch(resolve(ProductRepository::class), $request->products, auth()->user()->id);
+        return response()->success(200, 'Products to update were sent to a queue');
+    }
+
 
     public function show($id)
     {
@@ -96,13 +104,6 @@ class ProductController extends Controller
         }
     }
 
-    public function bulkUpdate(Request $request)
-    {
-        $validatorRequest = new BulkUpdateProductRequest();
-        Validator::make($request->all(), $validatorRequest->rules($request->products))->validate();
-        HandleUpdateProduct::dispatch(resolve(ProductRepository::class), $request->products, auth()->user()->id);
-        return response()->success(200, 'Products to update were sent to a queue');
-    }
 
     public function destroy($id)
     {

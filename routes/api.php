@@ -28,12 +28,14 @@ Route::middleware(['auth:sanctum'])->prefix('users')->group(function () {
     Route::get('/account-confirmation/{token}', [UserController::class, 'accountConfirmation'])->name('users.account-confirmation');
 });
 
-Route::middleware(['auth:sanctum'])->resource('products', ProductController::class);
-
 Route::middleware(['auth:sanctum'])->prefix('products')->group(function () {
     Route::post('/bulk-store', [ProductController::class, 'bulkStore'])->name('product.bulk-store');
     Route::patch('/bulk-update', [ProductController::class, 'bulkUpdate'])->name('product.bulk-update');
 });
+
+Route::middleware(['auth:sanctum'])->resource('products', ProductController::class);
+
+
 
 Route::middleware(['auth:sanctum'])->prefix('product-quantity-history')->group(function () {
     Route::get('', [ProductQuantityHistoryController::class, 'index'])->name('product-quantity-history.index');

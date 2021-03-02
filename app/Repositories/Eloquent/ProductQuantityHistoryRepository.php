@@ -18,7 +18,11 @@ class ProductQuantityHistoryRepository extends AbstractRepository implements Pro
 
     public function getByProductId(int $productId)
     {
-        return $this->model->where('product_id', $productId);
+        return $this->model->where('product_id', $productId)->with(['company', 'user'])->get();
     }
 
+    public function findLastProductUpdateByProductId(int $productId)
+    {
+        return $this->model->where('product_id', $productId)->orderBy('updated_at', 'desc')->first();
+    }
 }

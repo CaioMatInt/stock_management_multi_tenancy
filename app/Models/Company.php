@@ -20,4 +20,8 @@ class Company extends Model
         'deleted_at'
     ];
 
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

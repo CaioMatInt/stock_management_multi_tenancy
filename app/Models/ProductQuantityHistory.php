@@ -11,7 +11,6 @@ class ProductQuantityHistory extends Model
     use SoftDeletes;
     use TenantModelTrait;
     public $timestamps = true;
-    public $table = 'product_quantities_history';
 
     protected $fillable = [
         'quantity',
@@ -23,5 +22,15 @@ class ProductQuantityHistory extends Model
     protected $hidden = [
         'deleted_at'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class, 'company_id');
+    }
 
 }
