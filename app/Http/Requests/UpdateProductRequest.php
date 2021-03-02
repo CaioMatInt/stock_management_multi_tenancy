@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Repositories\Eloquent\ProductRepository;
 use App\Rules\ProductUniqueSkuIgnoringCurrentProductIdRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 
 class UpdateProductRequest extends FormRequest
@@ -24,15 +25,15 @@ class UpdateProductRequest extends FormRequest
      *
      * @return array
      */
-    public function rules($products)
+    public function rules()
     {
+
         return [
-            'products.*.id' => 'required|exists:products,id',
-            'products.*.name' => 'sometimes|string',
-            'products.*.image_path' => 'sometimes|string',
-            'products.*.quantity' => 'required|int',
-            'products.*.price' => 'required|numeric',
-            'products.*.sku' => ['required','string', new ProductUniqueSkuIgnoringCurrentProductIdRule(resolve(ProductRepository::class), $products)],
+            'name' => 'sometimes|string',
+            'image_path' => 'sometimes|string',
+            'quantity' => 'required|int',
+            'price' => 'required|numeric',
+            'sku' => 'required|string|unique:products,sku,' . $this->product . ',id'
         ];
     }
 

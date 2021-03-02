@@ -28,7 +28,7 @@ Route::middleware(['auth:sanctum'])->prefix('users')->group(function () {
     Route::get('/account-confirmation/{token}', [UserController::class, 'accountConfirmation'])->name('users.account-confirmation');
 });
 
-Route::middleware(['auth:sanctum'])->resource('products', ProductController::class)->except('update', 'store');
+Route::middleware(['auth:sanctum'])->resource('products', ProductController::class);
 
 Route::middleware(['auth:sanctum'])->prefix('products')->group(function () {
     Route::post('/bulk-store', [ProductController::class, 'bulkStore'])->name('product.bulk-store');

@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Gateways\Paypal\StorePaypalOrderRequest;
+use App\Http\Requests\BulkStoreProductRequest;
+use App\Http\Requests\BulkUpdateProductRequest;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Jobs\Product\HandleStoreProduct;
@@ -12,8 +13,6 @@ use App\Repositories\Eloquent\ProductRepository;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -40,11 +39,47 @@ class ProductController extends Controller
 
     }
 
-    public function bulkStore(StoreProductRequest $request)
+    public function bulkStore(BulkStoreProductRequest $request)
     {
         HandleStoreProduct::dispatch(resolve(ProductRepository::class), $request->products, auth()->user()->id, auth()->user()->company_id);
         return response()->success(200, 'Products were sent to a queue');
     }
+
+    public function store(StoreProductRequest $request)
+    {
+
+        DB::beginTransaction();
+
+        try {
+            $responseData = $this->productRepository->create($request->all());
+            DB::commit();
+            return response()->success(200, null, $responseData);
+        }catch(\Exception $e){
+            DB::rollBack();
+            return response()->error(null, $e->getMessage());
+        }catch(\Throwable $e){
+            DB::rollBack();
+            return response()->error(null, $e->getMessage());
+        }
+    }
+
+    public function update(UpdateProductRequest $request, $id)
+    {
+
+        DB::beginTransaction();
+        try {
+            $responseData = $this->productRepository->update($id, $request->all());
+            DB::commit();
+            return response()->success(200, null, $responseData);
+        }catch(\Exception $e){
+            DB::rollBack();
+            return response()->error(null, $e->getMessage());
+        }catch(\Throwable $e){
+            DB::rollBack();
+            return response()->error(null, $e->getMessage());
+        }
+    }
+
 
     public function show($id)
     {
@@ -63,7 +98,7 @@ class ProductController extends Controller
 
     public function bulkUpdate(Request $request)
     {
-        $validatorRequest = new UpdateProductRequest();
+        $validatorRequest = new BulkUpdateProductRequest();
         Validator::make($request->all(), $validatorRequest->rules($request->products))->validate();
         HandleUpdateProduct::dispatch(resolve(ProductRepository::class), $request->products, auth()->user()->id);
         return response()->success(200, 'Products to update were sent to a queue');
