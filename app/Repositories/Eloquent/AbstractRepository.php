@@ -2,6 +2,8 @@
 
 namespace App\Repositories\Eloquent;
 
+use Illuminate\Database\Eloquent\Model;
+
 abstract class AbstractRepository
 {
     protected $model;
@@ -97,8 +99,10 @@ abstract class AbstractRepository
 
     public function update(int $id,array $data)
     {
-        $this->model->find($id)->update($data);
-        return $this->model->find($id);
+        $model = $this->model->find($id);
+
+        return is_null($model) ? $model : $model->update($data);
+
     }
 
     public function delete(int $id)

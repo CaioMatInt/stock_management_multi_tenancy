@@ -22,6 +22,11 @@ class UserTableSeeder extends Seeder
                     'name' => "Rafael Cardoso",
                     'company_id' => 1,
                     'password' => Hash::make('turnoverbnb')],
+                [   'id' => 2,
+                    'email' => 'stevejobs@apple.com',
+                    'name' => "Steve Jobs",
+                    'company_id' => 2,
+                    'password' => Hash::make('turnoverbnb')],
             ]
         );
     }

@@ -70,6 +70,9 @@ class ProductController extends Controller
         try {
             $responseData = $this->productRepository->update($id, $request->all());
             DB::commit();
+            if(empty($responseData)){
+                return response()->error(404, 'Product not found');
+            }
             return response()->success(200, null, $responseData);
         }catch(\Exception $e){
             DB::rollBack();
