@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Repositories\Contracts\CompanyRepositoryInterface;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Services\UserService;
 use Illuminate\Support\Facades\DB;
@@ -12,11 +13,13 @@ class UserController extends Controller
 {
     protected $userService;
     protected $userRepository;
+    protected $companyRepository;
 
-    public function __construct(UserService $userService, UserRepositoryInterface $userRepository)
+    public function __construct(UserService $userService, UserRepositoryInterface $userRepository, CompanyRepositoryInterface $companyRepository)
     {
         $this->userService = $userService;
         $this->userRepository = $userRepository;
+        $this->companyRepository = $companyRepository;
     }
 
     public function index()
@@ -38,6 +41,11 @@ class UserController extends Controller
 
         try{
             $data = $request->all();
+
+            if(is_null($this->companyRepository->find($request->company_id))){
+                return response()->error(404, 'Company not found');
+            }
+
             $responseData = $this->userService->create($data);
             DB::commit();
             return response()->success(200, null, $responseData);
