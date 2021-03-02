@@ -13,6 +13,7 @@ use App\Services\ProductService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -62,6 +63,8 @@ class ProductController extends Controller
 
     public function bulkUpdate(Request $request)
     {
+        $validatorRequest = new UpdateProductRequest();
+        Validator::make($request->all(), $validatorRequest->rules($request->products))->validate();
         HandleUpdateProduct::dispatch(resolve(ProductRepository::class), $request->products, auth()->user()->id);
         return response()->success(200, 'Products to update were sent to a queue');
     }

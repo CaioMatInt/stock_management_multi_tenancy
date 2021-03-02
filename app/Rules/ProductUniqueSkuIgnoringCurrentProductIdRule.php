@@ -6,7 +6,7 @@ namespace App\Rules;
 use App\Repositories\Eloquent\ProductRepository;
 use Illuminate\Contracts\Validation\Rule;
 
-class ProductSkuRule implements Rule
+class ProductUniqueSkuIgnoringCurrentProductIdRule implements Rule
 {
     /**
      * Create a new rule instance.
@@ -33,7 +33,6 @@ class ProductSkuRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        dd($this);
         $this->attribute = $attribute;
         $explodedAttribute = explode(".", $attribute);
         $currentArrayPositionOfProductsArray = $explodedAttribute[1];

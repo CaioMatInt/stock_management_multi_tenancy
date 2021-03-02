@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Repositories\Eloquent\ProductRepository;
-use App\Rules\ProductSkuRule;
+use App\Rules\ProductUniqueSkuIgnoringCurrentProductIdRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 
@@ -32,7 +32,7 @@ class UpdateProductRequest extends FormRequest
             'products.*.image_path' => 'sometimes|string',
             'products.*.quantity' => 'required|int',
             'products.*.price' => 'required|numeric',
-            'products.*.sku' => ['required','string', new ProductSkuRule(resolve(ProductRepository::class), $products)],
+            'products.*.sku' => ['required','string', new ProductUniqueSkuIgnoringCurrentProductIdRule(resolve(ProductRepository::class), $products)],
         ];
     }
 
