@@ -26,8 +26,8 @@ class ProductObserver
     {
         $prepare['product_id'] = $product->id;
         $prepare['quantity'] = $product->quantity;
-        $prepare['user_id'] = auth()->user()->id;
-        $prepare['company_id'] = auth()->user()->company_id;
+        $prepare['user_id'] = $product->user_id;
+        $prepare['company_id'] = $product->company_id;
 
         $this->productQuantityHistoryRepository->create($prepare);
     }
@@ -42,8 +42,8 @@ class ProductObserver
     {
         $prepare['product_id'] = $product->id;
         $prepare['quantity'] = $product->quantity;
-        $prepare['user_id'] = auth()->user()->id;
-        $prepare['company_id'] = auth()->user()->company_id;
+        $prepare['user_id'] = $product->user_id;
+        $prepare['company_id'] = $product->company_id;
 
         $this->productQuantityHistoryRepository->create($prepare);
     }

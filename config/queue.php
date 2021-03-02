@@ -59,7 +59,7 @@ return [
             'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
         ],
 
-        'predis' => [
+        'redis' => [
             'driver' => 'redis',
             'connection' => 'default',
             'queue' => '{default}',

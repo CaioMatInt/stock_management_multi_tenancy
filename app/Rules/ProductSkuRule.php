@@ -33,6 +33,7 @@ class ProductSkuRule implements Rule
      */
     public function passes($attribute, $value)
     {
+        dd($this);
         $this->attribute = $attribute;
         $explodedAttribute = explode(".", $attribute);
         $currentArrayPositionOfProductsArray = $explodedAttribute[1];

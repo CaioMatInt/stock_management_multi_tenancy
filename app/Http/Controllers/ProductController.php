@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Jobs\Product\HandleStoreProduct;
 use App\Jobs\Product\HandleUpdateProduct;
 use App\Repositories\Contracts\ProductRepositoryInterface;
+use App\Repositories\Eloquent\ProductRepository;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -40,21 +41,8 @@ class ProductController extends Controller
 
     public function bulkStore(StoreProductRequest $request)
     {
-        DB::beginTransaction();
-        try {
-            foreach($request->products as $product) {
-                $this->productRepository->create($product);
-            }
-            DB::commit();
-        } catch (\Exception $e) {
-           dd($e);
-        } catch (\Throwable $e) {
-            dd($e);
-        }
-
-
-       /* HandleStoreProduct::dispatch($request->products);
-        return response()->success(200, 'Products were sent to a queue');*/
+        HandleStoreProduct::dispatch(resolve(ProductRepository::class), $request->products, auth()->user()->id, auth()->user()->company_id);
+        return response()->success(200, 'Products were sent to a queue');
     }
 
     public function show($id)
@@ -74,28 +62,8 @@ class ProductController extends Controller
 
     public function bulkUpdate(Request $request)
     {
-
-        $validatorRequest = new UpdateProductRequest();
-
-        Validator::make($request->all(), $validatorRequest->rules($request->products))->validate();
-
-
-        dd('validator');
-        DB::beginTransaction();
-        try {
-            foreach($request->products as $product) {
-                $this->productRepository->update($product['id'], $product['data']);
-            }
-            DB::commit();
-        } catch (\Exception $e) {
-            DB::rollBack();
-            dd($e);
-        } catch (\Throwable $e) {
-            DB::rollBack();
-            dd($e);
-        }
-        /*HandleUpdateProduct::dispatch($request->products);
-        return response()->success(200, 'Products to update were sent to a queue');*/
+        HandleUpdateProduct::dispatch(resolve(ProductRepository::class), $request->products, auth()->user()->id);
+        return response()->success(200, 'Products to update were sent to a queue');
     }
 
     public function destroy($id)

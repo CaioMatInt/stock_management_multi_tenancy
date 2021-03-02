@@ -25,11 +25,17 @@ class HandleStoreProduct implements ShouldQueue
     public $tries = 3;
 
     protected $productRepository;
+    protected $products;
+    protected $userId;
+    protected $companyId;
 
 
-    public function __construct(ProductRepository $productRepository)
+    public function __construct(ProductRepository $productRepository, array $products, int $userId, int $companyId)
     {
         $this->productRepository = $productRepository;
+        $this->products = $products;
+        $this->userId = $userId;
+        $this->companyId = $companyId;
     }
 
     /**
@@ -37,22 +43,22 @@ class HandleStoreProduct implements ShouldQueue
      *
      * @return void
      */
-    public function handle(array $products)
+    public function handle()
     {
-
-        DB::beginTransaction();
-        try {
-            foreach($products as $product) {
-                $this->productRepository->create($product);
-            }
-            DB::commit();
-        } catch (\Exception $e) {
-            DB::rollBack();
-            Log::channel('store_product_log')->critical($e->getMessage());
-        } catch (\Throwable $e) {
-            DB::rollBack();
-            Log::channel('store_product_log')->critical($e->getMessage());
+        foreach($this->products as $product) {
+            $this->productRepository->createByJob($product, $this->userId, $this->companyId);
         }
+    }
+
+    /**
+     * Handle a job failure.
+     *
+     * @param  \Throwable  $exception
+     * @return void
+     */
+    public function failed(\Throwable $exception)
+    {
+        Log::channel('store_product_log')->critical($exception->getMessage());
 
     }
 }
