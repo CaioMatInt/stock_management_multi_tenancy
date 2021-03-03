@@ -4,7 +4,7 @@
 
 This is a simple single database multi tenancy stock management system.
 
-## How to install and use this project
+## How to install and use this project locally
 
  - Clone this project to your computer
  - Navigate to the created laravel project folder
@@ -21,6 +21,15 @@ This is a simple single database multi tenancy stock management system.
 
 ![Image of Database Diagram](https://i.ibb.co/25cym9V/db-diagram-stock-management.jpg)
 
-## Routes
+## Usage
 
-- Login - POST http://{{ip}}/api/login
+- To access products and product_quantity_history cruds, firstly login on route api/login with one of the below credentials or register on api/users/register:
+
+rafael@turnoverbnb.com
+password: turnoverbnb
+
+stevejobs@apple.com
+password: turnoverbnb
+
+
+
