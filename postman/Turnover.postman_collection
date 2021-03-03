@@ -299,7 +299,7 @@
 							"raw": "{\r\n    \"price\": 15.19,\r\n    \"name\": \"Fryer\",\r\n    \"quantity\": 150,\r\n    \"sku\": \"fryr\"\r\n}"
 						},
 						"url": {
-							"raw": "http://{{ip}}/api/products/2",
+							"raw": "http://{{ip}}/api/products/1",
 							"protocol": "http",
 							"host": [
 								"{{ip}}"
@@ -307,7 +307,7 @@
 							"path": [
 								"api",
 								"products",
-								"2"
+								"1"
 							]
 						}
 					},
@@ -412,7 +412,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{ip}}/api/product-quantity-history/get-by-product-id/1",
+							"raw": "http://{{ip}}/api/product-quantity-history/get-by-product-id/2",
 							"protocol": "http",
 							"host": [
 								"{{ip}}"
@@ -421,7 +421,7 @@
 								"api",
 								"product-quantity-history",
 								"get-by-product-id",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -455,7 +455,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"test@test.com\",\r\n    \"name\": \"test\",\r\n    \"password\": \"test\",\r\n    \"company_id\": 6\r\n}"
+							"raw": "{\r\n    \"email\": \"test@test.com\",\r\n    \"name\": \"test\",\r\n    \"password\": \"test\",\r\n    \"company_id\": 2\r\n}"
 						},
 						"url": {
 							"raw": "http://{{ip}}/api/users/register",
