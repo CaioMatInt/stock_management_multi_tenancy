@@ -21,4 +21,6 @@ This is a simple single database multi tenancy stock management system.
 
 ![Image of Database Diagram](https://i.ibb.co/25cym9V/db-diagram-stock-management.jpg)
 
+## Routes
 
+- Login - POST http://{{ip}}/api/login
