@@ -18,8 +18,8 @@ This is a simple single database multi tenancy stock management system.
  ![Image of Database Diagram](https://i.ibb.co/qBBF9G1/postman-local-enviroment.jpg)
 
  
- ## How to test it without instaling locally
- - Optional: Configure your enviroment on your Postman App containing the server ip (192.81.210.246) and token variables. Import the Postman Collection (postman/Turnover.postman_collection) to your Postman app.
+ ## How to test it without installing locally
+ - Configure your enviroment on your Postman App containing the server ip (192.81.210.246) and token variables. Import the Postman Collection (postman/Turnover.postman_collection) to your Postman app.
  ![Image of Database Diagram](https://i.ibb.co/bX9Y19P/external-server-enviroment.jpg)
 
 ## Database Diagram
@@ -28,7 +28,7 @@ This is a simple single database multi tenancy stock management system.
 
 ## Usage
 
-- To access products and product_quantity_history cruds, firstly login on route api/login with one of the below credentials or register on api/users/register:
+- To get access to products and product_quantity_history cruds, firstly login on route api/login with one of the below credentials:
 
 rafael@turnoverbnb.com
 password: turnoverbnb
@@ -36,5 +36,6 @@ password: turnoverbnb
 stevejobs@apple.com
 password: turnoverbnb
 
-
+- Or register a new user on api/users/register sending a registered company id (1, 2 or 3) in the request body:
+![Image of Database Diagram](https://i.ibb.co/7CpZGyV/register-user.jpg)
 
