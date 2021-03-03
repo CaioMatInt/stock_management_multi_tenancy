@@ -27,6 +27,10 @@ This is a simple single database multi tenancy stock management system.
 
 ![Image of Database Diagram](https://i.ibb.co/25cym9V/db-diagram-stock-management.jpg)
 
+## System Architecture
+
+![Image of System Architecture](https://i.ibb.co/XsBdk3R/system-architecture.jpg)
+
 ## Usage
 
 - To get access to products and product_quantity_history cruds, firstly login on route api/login with one of the below credentials:
