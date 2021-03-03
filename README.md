@@ -20,8 +20,8 @@ This is a simple single database multi tenancy stock management system.
 
  
  ## How to test it without installing locally
- - Configure your enviroment on your Postman App containing the server ip (192.81.210.246) and token variables. Import the Postman Collection (postman/Turnover.postman_collection) to your Postman app.
- ![Image of Database Diagram](https://i.ibb.co/bX9Y19P/external-server-enviroment.jpg)
+ - Configure your enviroment on your Postman App containing the server ip (198.211.103.205) and token variables. Import the Postman Collection (postman/Turnover.postman_collection) to your Postman app.
+ ![Image of Database Diagram](https://i.ibb.co/r69R0nT/external-server-enviroment.jpg)
 
 ## Database Diagram
 
