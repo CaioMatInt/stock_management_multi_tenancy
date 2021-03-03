@@ -100,9 +100,11 @@ abstract class AbstractRepository
     public function update(int $id,array $data)
     {
         $model = $this->model->find($id);
-
-        return is_null($model) ? $model : $model->update($data);
-
+        if(is_null($model)){
+            return $model;
+        }
+        $model->update($data);
+        return $model;
     }
 
     public function delete(int $id)
