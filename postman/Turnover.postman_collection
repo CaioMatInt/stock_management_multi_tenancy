@@ -455,7 +455,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"test@test.com\",\r\n    \"name\": \"test\",\r\n    \"password\": \"test\",\r\n    \"company_id\": 1\r\n}"
+							"raw": "{\r\n    \"email\": \"test@test.com\",\r\n    \"name\": \"test\",\r\n    \"password\": \"test\",\r\n    \"company_id\": 6\r\n}"
 						},
 						"url": {
 							"raw": "http://{{ip}}/api/users/register",
