@@ -10,6 +10,7 @@ This is a simple single database multi tenancy stock management system.
  - Navigate to the created laravel project folder
  - Run composer install
  - Setup a new database and configure your db connection on .env file
+ - Change your QUEUE_CONNECTION=sync on .env file to QUEUE_CONNECTION=database
  - Optional: Setup Redis and configure your .env file
  - Run php artisan migrate:fresh --seed
  - Run php artisan serve
@@ -36,6 +37,6 @@ password: turnoverbnb
 stevejobs@apple.com
 password: turnoverbnb
 
-- Or register a new user on api/users/register sending a registered company id (1, 2 or 3) in the request body:
+- Or register a new user on api/users/register sending a registered company id (1, 2 or 3) on request body:
 ![Image of Database Diagram](https://i.ibb.co/7CpZGyV/register-user.jpg)
 
