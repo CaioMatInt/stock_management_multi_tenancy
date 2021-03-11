@@ -391,7 +391,7 @@
 					"response": []
 				},
 				{
-					"name": "getByProductId",
+					"name": "byProduct",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -412,7 +412,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{ip}}/api/product-quantity-history/get-by-product-id/2",
+							"raw": "http://{{ip}}/api/product-quantity-history/by-product/2",
 							"protocol": "http",
 							"host": [
 								"{{ip}}"
@@ -420,7 +420,7 @@
 							"path": [
 								"api",
 								"product-quantity-history",
-								"get-by-product-id",
+								"by-product",
 								"2"
 							]
 						}
