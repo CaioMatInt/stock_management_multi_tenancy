@@ -39,7 +39,7 @@ Route::middleware(['auth:sanctum'])->resource('products', ProductController::cla
 
 Route::middleware(['auth:sanctum'])->prefix('product-quantity-history')->group(function () {
     Route::get('', [ProductQuantityHistoryController::class, 'index'])->name('product-quantity-history.index');
-    Route::get('/get-by-product-id/{product_id}', [ProductQuantityHistoryController::class, 'getByProductId'])->name('product-quantity-history.get-by-product-id');
+    Route::get('/by-product/{product_id}', [ProductQuantityHistoryController::class, 'getByProductId'])->name('product-quantity-history.get-by-product-id');
 });
 
 

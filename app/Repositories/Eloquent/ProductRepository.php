@@ -28,6 +28,17 @@ class ProductRepository extends AbstractRepository implements ProductRepositoryI
         return $this->model->create($data);
     }
 
+    public function update(int $id,array $data)
+    {
+        $data['user_id'] = auth()->user()->id;
+        $model = $this->model->find($id);
+        if(is_null($model)){
+            return $model;
+        }
+        $model->update($data);
+        return $model;
+    }
+
     public function updateByJob(int $productId, array $data, int $userId)
     {
         $data['user_id'] = $userId;
