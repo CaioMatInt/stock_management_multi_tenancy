@@ -24,9 +24,9 @@ class ProductQuantityHistoryController extends Controller
             $responseData = $this->productQuantityHistoryRepository->getAll();
             return response()->success(200, null, $responseData);
         }catch(\Exception $e){
-            return response()->error(null, $e->getMessage());
+            return response()->error($e->getStatusCode(), $e->getMessage());
         }catch(\Throwable $e){
-            return response()->error(null, $e->getMessage());
+            return response()->error($e->getStatusCode(), $e->getMessage());
         }
 
     }
@@ -37,9 +37,9 @@ class ProductQuantityHistoryController extends Controller
             $responseData = $this->productQuantityHistoryRepository->getByProductId($productId);
             return response()->success(200, null, $responseData);
         }catch(\Exception $e){
-            return response()->error(null, $e->getMessage());
+            return response()->error($e->getStatusCode(), $e->getMessage());
         }catch(\Throwable $e){
-            return response()->error(null, $e->getMessage());
+            return response()->error($e->getStatusCode(), $e->getMessage());
         }
 
     }

@@ -38,7 +38,14 @@ class ProductUniqueSkuIgnoringCurrentProductIdRule implements Rule
         $currentArrayPositionOfProductsArray = $explodedAttribute[1];
         $productIdToIgnoreOnValidation = $this->products[$currentArrayPositionOfProductsArray]['id'];
 
-        $productsBySkuIgnoringCurrentProductId = $this->productRepository->findMultipleWhereAndMultipleConditional([
+        //Validate if exists a sku with the same value, but ignoring the sku of the row that is going to be updated
+        //Without this, when you try to update, for example, this row:
+        //id => 7, sku => 'asas7789', name => 'coffee'
+        //Sending a body like this:
+        //id => 7, sku => 'asas7789', name => 'coffee testing'
+        //It is going to generate an exception, sku asas7789 already exists. It needs to be ignored.
+
+        $productsBySkuIgnoringCurrentProductId = $this->productRepository->getMultipleWhereAndMultipleConditional([
             0 => ['field' => 'sku', 'conditional' => '=', 'value' => $value],
             1 => ['field' => 'id', 'conditional' => '!=', 'value' => $productIdToIgnoreOnValidation],
         ]);

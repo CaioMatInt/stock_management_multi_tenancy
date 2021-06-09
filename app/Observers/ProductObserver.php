@@ -42,7 +42,7 @@ class ProductObserver
     {
         $lastProductUpdate = $this->productQuantityHistoryRepository->findLastProductUpdateByProductId($product->id);
 
-        if($lastProductUpdate->quantity !== $product->quantity) {
+        if((is_null($lastProductUpdate)) || ($lastProductUpdate->quantity !== $product->quantity)) {
             $prepare['product_id'] = $product->id;
             $prepare['quantity'] = $product->quantity;
             $prepare['user_id'] = $product->user_id;

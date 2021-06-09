@@ -33,11 +33,6 @@ abstract class AbstractRepository
         return $this->model->select($fields)->get();
     }
 
-    public function findAndSelectSpecificFields(array $fields, $id){
-
-        return $this->model->select($fields)->find($id);
-    }
-
     public function getAll()
     {
         return $this->model->get();
@@ -63,14 +58,33 @@ abstract class AbstractRepository
         return $this->model->with($relationships)->paginate($records_per_page);
     }
 
+    public function getMultipleWhereAndMultipleConditional(array $params)
+    {
+        $builder = $this->model;
+
+        foreach($params as $param){
+            $builder = $builder->where($param['field'], $param['conditional'] , $param['value']);
+        }
+        return $builder->get();
+    }
+
     public function find(int $id)
     {
-        return $this->model->find($id);
+        $model = $this->model->find($id);
+        if(is_null($model)){
+            abort(404);
+        }
+        return $model;
+
     }
 
     public function findWhere(string $field, $value)
     {
-        return $this->model->where($field, $value)->first();
+        $model = $this->model->where($field, $value)->first();
+        if(is_null($model)){
+            abort(404);
+        }
+        return $model;
     }
 
     public function findMultipleWhere(array $params)
@@ -81,23 +95,33 @@ abstract class AbstractRepository
             $builder->where($param['field'], $param['value']);
         }
 
-        return $builder->first();
+        $model = $builder->first();
+        if(is_null($model)){
+            abort(404);
+        }
+
+        return $model;
     }
 
-    public function findMultipleWhereAndMultipleConditional(array $params)
-    {
-        $builder = $this->model;
+    public function findAndSelectSpecificFields(array $fields, $id){
 
-        foreach($params as $param){
-            $builder = $builder->where($param['field'], $param['conditional'] , $param['value']);
+        $model = $this->model->select($fields)->find($id);
+
+        if(is_null($model)){
+            abort(404);
         }
-        return $builder->get();
+
+        return $model;
     }
 
 
     public function findWithRelationships(int $id, array $relationships)
     {
-        return $this->model->with($relationships)->find($id);
+        $model = $this->model->with($relationships)->find($id);
+        if(is_null($model)){
+            abort(404);
+        }
+        return $model;
     }
 
     public function create(array $data)
@@ -109,7 +133,7 @@ abstract class AbstractRepository
     {
         $model = $this->model->find($id);
         if(is_null($model)){
-            return $model;
+            abort(404);
         }
         $model->update($data);
         return $model;
@@ -117,21 +141,15 @@ abstract class AbstractRepository
 
     public function delete(int $id)
     {
-        return $this->model->find($id)->delete();
+        $model = $this->model->find($id);
+        if(is_null($model)){
+            abort(404);
+        }
+        return $model->delete();
     }
 
     public function count(){
         return $this->model->get()->count();
     }
-
-/*    public function getIdBySlug(string $slug)
-    {
-        return $this->model->select('id')->where('slug', $slug)->first()->id;
-    }
-
-    public function getSlugById(int $id)
-    {
-        return $this->model->find($id)->slug;
-    }*/
 
 }

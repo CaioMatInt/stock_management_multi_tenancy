@@ -32,13 +32,9 @@ interface AbstractRepositoryInterface
 
     public function count();
 
-/*    public function getIdBySlug(string $slug);
-
-    public function getSlugById(int $id);*/
-
     public function findMultipleWhere(array $params);
 
-    public function findMultipleWhereAndMultipleConditional(array $params);
+    public function getMultipleWhereAndMultipleConditional(array $params);
 
     public function getARandomRowId();
 

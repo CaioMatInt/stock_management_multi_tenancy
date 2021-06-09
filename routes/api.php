@@ -6,6 +6,7 @@ use \App\Http\Controllers\ProductController;
 use \App\Http\Controllers\ProductQuantityHistoryController;
 use \App\Http\Controllers\UserController;
 use \App\Http\Controllers\CompanyController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,7 @@ Route::middleware(['auth:sanctum'])->prefix('products')->group(function () {
 });
 
 Route::middleware(['auth:sanctum'])->resource('products', ProductController::class);
+Route::middleware(['auth:sanctum'])->resource('categories', CategoryController::class);
 Route::middleware(['auth:sanctum'])->resource('companies', CompanyController::class);
 
 

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Requests\StoreCompanyRequest;
+use App\Http\Requests\UpdateCompanyRequest;
 use App\Repositories\Contracts\CompanyRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -22,14 +24,14 @@ class CompanyController extends Controller
             $responseData = $this->companyRepository->getAll();
             return response()->success(200, null, $responseData);
         }catch(\Exception $e){
-            return response()->error(null, $e->getMessage());
+            return response()->error($e->getStatusCode(), $e->getMessage());
         }catch(\Throwable $e){
-            return response()->error(null, $e->getMessage());
+            return response()->error($e->getStatusCode(), $e->getMessage());
         }
 
     }
 
-    public function store(Request $request)
+    public function store(StoreCompanyRequest $request)
     {
 
         DB::beginTransaction();
@@ -40,30 +42,27 @@ class CompanyController extends Controller
             return response()->success(200, null, $responseData);
         }catch(\Exception $e){
             DB::rollBack();
-            return response()->error(null, $e->getMessage());
+            return response()->error($e->getStatusCode(), $e->getMessage());
         }catch(\Throwable $e){
             DB::rollBack();
-            return response()->error(null, $e->getMessage());
+            return response()->error($e->getStatusCode(), $e->getMessage());
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateCompanyRequest $request, $id)
     {
 
         DB::beginTransaction();
         try {
             $responseData = $this->companyRepository->update($id, $request->all());
             DB::commit();
-            if(empty($responseData)){
-                return response()->error(404, 'Company not found');
-            }
             return response()->success(200, null, $responseData);
         }catch(\Exception $e){
             DB::rollBack();
-            return response()->error(null, $e->getMessage());
+            return response()->error($e->getStatusCode(), $e->getMessage());
         }catch(\Throwable $e){
             DB::rollBack();
-            return response()->error(null, $e->getMessage());
+            return response()->error($e->getStatusCode(), $e->getMessage());
         }
     }
 
@@ -71,14 +70,11 @@ class CompanyController extends Controller
     {
         try{
             $responseData = $this->companyRepository->find($id);
-            if(empty($responseData)){
-                return response()->error(404, 'Company not found');
-            }
             return response()->success(200, null, $responseData);
         }catch(\Exception $e){
-            return response()->error(null, $e->getMessage());
+            return response()->error($e->getStatusCode(), $e->getMessage());
         }catch(\Throwable $e){
-            return response()->error(null, $e->getMessage());
+            return response()->error($e->getStatusCode(), $e->getMessage());
         }
     }
 
@@ -92,10 +88,10 @@ class CompanyController extends Controller
             return response()->success(200, null);
         }catch( \Exception $e){
             DB::rollBack();
-            return response()->error(null, $e->getMessage());
+            return response()->error($e->getStatusCode(), $e->getMessage());
         }catch(\Throwable $e){
             DB::rollBack();
-            return response()->error(null, $e->getMessage());
+            return response()->error($e->getStatusCode(), $e->getMessage());
         }
     }
 }

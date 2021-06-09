@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Product extends Model
+class Category extends Model
 {
     use SoftDeletes;
     use TenantModelTrait;
@@ -17,17 +17,19 @@ class Product extends Model
 
     protected $fillable = [
         'name',
-        'price',
+        'category_id',
         'user_id',
-        'company_id',
-        'image_path',
-        'sku',
-        'quantity'
+        'company_id'
     ];
 
     protected $hidden = [
         'deleted_at'
     ];
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'product_category', 'category_id', 'product_id');
+    }
 
     public function user()
     {
@@ -37,15 +39,5 @@ class Product extends Model
     public function company()
     {
         return $this->belongsTo(Company::class, 'company_id');
-    }
-
-    public function productQuantityHistory()
-    {
-        return $this->hasMany(ProductQuantityHistory::class);
-    }
-
-    public function categories()
-    {
-        return $this->belongsToMany(Category::class, 'product_category', 'product_id', 'category_id');
     }
 }

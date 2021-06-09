@@ -4,7 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreProductRequest extends FormRequest
+
+class UpdateCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,13 +24,10 @@ class StoreProductRequest extends FormRequest
      */
     public function rules()
     {
+
         return [
-            'price' => 'required|numeric',
-            'name' => 'required|string',
-            'quantity' => 'required|int',
-            'image_path' => 'sometimes|string',
-            //Necessário escrever uma rule que funcione com o multi tenancy
-            'sku' => 'required|string|unique:products,sku',
+            'name' => 'sometimes|string',
         ];
     }
+
 }

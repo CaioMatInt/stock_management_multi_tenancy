@@ -28,9 +28,9 @@ class UserController extends Controller
             $responseData = $this->userRepository->getAll();
             return response()->success(200, null, $responseData);
         }catch(\Exception $e){
-            return response()->error(null, $e->getMessage());
+            return response()->error($e->getStatusCode(), $e->getMessage());
         }catch(\Throwable $e){
-            return response()->error(null, $e->getMessage());
+            return response()->error($e->getStatusCode(), $e->getMessage());
         }
 
     }
@@ -51,10 +51,10 @@ class UserController extends Controller
             return response()->success(200, null, $responseData);
         }catch(\Exception $e) {
             DB::rollback();
-            return response()->error(null, $e->getMessage());
+            return response()->error($e->getStatusCode(), $e->getMessage());
         }catch(\Throwable $e){
             DB::rollback();
-            return response()->error(null, $e->getMessage());
+            return response()->error($e->getStatusCode(), $e->getMessage());
         }
     }
 
@@ -64,9 +64,9 @@ class UserController extends Controller
             $responseData = $this->userRepository->find(auth()->user()->id);
             return response()->success(200, null, $responseData);
         }catch(\Exception $e){
-            return response()->error(null, $e->getMessage());
+            return response()->error($e->getStatusCode(), $e->getMessage());
         }catch(\Throwable $e){
-            return response()->error(null, $e->getMessage());
+            return response()->error($e->getStatusCode(), $e->getMessage());
         }
     }
 
@@ -80,10 +80,10 @@ class UserController extends Controller
             return response()->success(200, null, $responseData);
         }catch(\Exception $e){
             DB::rollBack();
-            return response()->error(null, $e->getMessage());
+            return response()->error($e->getStatusCode(), $e->getMessage());
         }catch(\Throwable $e){
             DB::rollBack();
-            return response()->error(null, $e->getMessage());
+            return response()->error($e->getStatusCode(), $e->getMessage());
         }
     }
 
@@ -96,7 +96,7 @@ class UserController extends Controller
             return response()->success();
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->error(null, $e->getMessage());
+            return response()->error($e->getStatusCode(), $e->getMessage());
         }
     }
 

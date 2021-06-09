@@ -2,10 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Repositories\Eloquent\ProductRepository;
-use App\Rules\ProductUniqueSkuIgnoringCurrentProductIdRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 
 class UpdateProductRequest extends FormRequest
@@ -27,13 +24,13 @@ class UpdateProductRequest extends FormRequest
      */
     public function rules()
     {
-
         return [
             'name' => 'sometimes|string',
             'image_path' => 'sometimes|string',
-            'quantity' => 'required|int',
-            'price' => 'required|numeric',
-            'sku' => 'required|string|unique:products,sku,' . $this->product . ',id'
+            'quantity' => 'sometimes|int',
+            'price' => 'sometimes|numeric',
+            //Necessário escrever uma rule que funcione com o multi tenancy
+            'sku' => 'sometimes|string|unique:products,sku,' . $this->product . ',id'
         ];
     }
 
