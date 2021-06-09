@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Company extends Model
 {
+    use HasFactory;
     use SoftDeletes;
     public $timestamps = true;
 

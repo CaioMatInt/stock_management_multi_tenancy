@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -16,9 +17,8 @@ class CompanyTableSeeder extends Seeder
     {
         DB::table('companies')->insert(
             [
-                ['id' => 1, 'name' => 'TurnoverBNB'],
-                ['id' => 2, 'name' => 'Microsoft'],
-                ['id' => 3, 'name' => 'Apple'],
+                ['name' => 'Microsoft', 'created_at' => Carbon::now()],
+                ['name' => 'Apple', 'created_at' => Carbon::now()],
             ]
         );
     }

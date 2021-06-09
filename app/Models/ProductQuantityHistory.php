@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Tenant\Traits\TenantModelTrait;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -10,6 +11,7 @@ class ProductQuantityHistory extends Model
 {
     use SoftDeletes;
     use TenantModelTrait;
+    use HasFactory;
     public $timestamps = true;
     public $table = 'product_quantity_history';
 

@@ -40,5 +40,10 @@ interface AbstractRepositoryInterface
 
     public function findMultipleWhereAndMultipleConditional(array $params);
 
+    public function getARandomRowId();
+
+    public function getARandomRow();
+
+
 
 }

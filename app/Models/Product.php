@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Observers\ProductObserver;
 use App\Tenant\Traits\TenantModelTrait;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -11,6 +12,7 @@ class Product extends Model
 {
     use SoftDeletes;
     use TenantModelTrait;
+    use HasFactory;
     public $timestamps = true;
 
     protected $fillable = [

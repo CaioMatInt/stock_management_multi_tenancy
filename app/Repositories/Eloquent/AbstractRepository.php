@@ -17,6 +17,14 @@ abstract class AbstractRepository
         return app($this->model);
     }
 
+    public function getARandomRowId(){
+        return $this->model::inRandomOrder()->take(1)->first()->id;
+    }
+
+    public function getARandomRow(){
+        return $this->model::inRandomOrder()->take(1)->first();
+    }
+
     public function getAndSelectSpecificFields(array $fields, array $params){
         if($params){
             return $this->model->select($fields)->where($params)->get();
