@@ -53,7 +53,7 @@ abstract class AbstractRepository
         return $this->model->with($relationships)->get();
     }
 
-    public function getAllPaginated(array $records_per_page)
+    public function getAllPaginated($records_per_page)
     {
         return $this->model->paginate($records_per_page);
     }
@@ -124,16 +124,14 @@ abstract class AbstractRepository
         return $this->model->get()->count();
     }
 
-    //This function find one element by some field and value
-    public function getIdBySlug(string $slug)
+/*    public function getIdBySlug(string $slug)
     {
         return $this->model->select('id')->where('slug', $slug)->first()->id;
     }
 
-    //This function find one element by some field and value
     public function getSlugById(int $id)
     {
         return $this->model->find($id)->slug;
-    }
+    }*/
 
 }

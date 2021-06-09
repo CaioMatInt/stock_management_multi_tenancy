@@ -8,8 +8,8 @@ test('example', function () {
 });
 
 test('runDatabaseMigrationsAndSeedstest', function () {
-    DB::beginTransaction();
+
     Artisan::call('migrate:fresh');
     Artisan::call('db:seed');
-    DB::rollback();
+
 });

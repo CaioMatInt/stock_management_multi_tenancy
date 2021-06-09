@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Repositories\Contracts\CompanyRepositoryInterface;
-use http\Env\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class CompanyController extends Controller
