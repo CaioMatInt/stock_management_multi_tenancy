@@ -44,5 +44,6 @@ it('can delete a company', function () {
     $company = $this->companyFactory->create();
     $response = $this->actingAs($this->user)->deleteJson("/api/companies/" . $company->id)->assertJson(['success' => 'true']);
     $response->assertStatus(200);
+
     
 });
