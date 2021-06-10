@@ -15,17 +15,12 @@ This is a simple single database multi tenancy stock management system.
  - Run php artisan migrate:fresh --seed
  - Run php artisan serve
  - If you are not using Redis, run php artisan queue:work in a separate terminal
- - Optional: Configure a local enviroment on your Postman App containing ip and token variables. Import the Postman Collection (postman/Turnover.postman_collection) to your Postman app.
- ![Image of Database Diagram](https://i.ibb.co/qBBF9G1/postman-local-enviroment.jpg)
-
- 
- ## How to test it without installing locally
- - Configure your enviroment on your Postman App containing the server ip (198.211.103.205) and token variables. Import the Postman Collection (postman/Turnover.postman_collection) to your Postman app.
- ![Image of Database Diagram](https://i.ibb.co/r69R0nT/external-server-enviroment.jpg)
+ - Optional: Configure a local enviroment on your Postman App containing ip and token variables. Import the Postman Collection (postman/stock_management.postman_collection) to your Postman app.
+ ![Image of postman](https://i.ibb.co/qBBF9G1/postman-local-enviroment.jpg)
 
 ## Database Diagram
 
-![Image of Database Diagram](https://i.ibb.co/25cym9V/db-diagram-stock-management.jpg)
+![Image of Database Diagram](https://i.ibb.co/ZJzrN4p/db.jpg)
 
 ## System Architecture
 
@@ -35,12 +30,17 @@ This is a simple single database multi tenancy stock management system.
 
 - To get access to products and product_quantity_history cruds, firstly login on route api/login with one of the below credentials:
 
-rafael@turnoverbnb.com
-password: turnoverbnb
+bill@microsoft.com
+password: 123456
 
 stevejobs@apple.com
-password: turnoverbnb
+password: 123456
 
 - Or register a new user on api/users/register sending a registered company id (1, 2 or 3) on request body:
 ![Image of Database Diagram](https://i.ibb.co/7CpZGyV/register-user.jpg)
+
+## Tests
+
+This project is using PEST. To run tests, run on your terminal from the project's root folder: ./vendor/bin/pest
+ 
 
