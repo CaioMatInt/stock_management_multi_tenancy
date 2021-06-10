@@ -36,7 +36,7 @@ password: 123456
 stevejobs@apple.com
 password: 123456
 
-- Or register a new user on api/users/register sending a registered company id (1, 2 or 3) on request body:
+- Or register a new user on api/users/register sending a registered company id (1 or 2 for example) on request body:
 ![Image of Database Diagram](https://i.ibb.co/7CpZGyV/register-user.jpg)
 
 ## Tests
