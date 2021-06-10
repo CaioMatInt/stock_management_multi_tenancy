@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "1fc4d9fa-9e97-482a-8ab9-8b91787de971",
-		"name": "Turnover",
+		"name": "Stock Management",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -54,12 +54,12 @@
 							"formdata": [
 								{
 									"key": "email",
-									"value": "rafael@turnoverbnb.com",
+									"value": "bill@microsoft.com",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "turnoverbnb",
+									"value": "123456",
 									"type": "text"
 								}
 							]
@@ -177,7 +177,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"products\": [\r\n        {\r\n            \"price\": 15.19,\r\n            \"name\": \"Fryer\",\r\n            \"quantity\": 10,\r\n            \"sku\": \"fryer\"\r\n        },\r\n        {\r\n            \"price\": 205.99,\r\n            \"name\": \"Fridge\",\r\n            \"quantity\": 5,\r\n            \"sku\": \"fridge\"\r\n        }\r\n    ]\r\n}"
+							"raw": "{\r\n    \"products\": [\r\n        {\r\n            \"price\": 15.19,\r\n            \"name\": \"Detergente neutro\",\r\n            \"quantity\": 10,\r\n            \"sku\": \"DET85447\",\r\n            \"categoriesArray\": [4]\r\n        },\r\n        {\r\n            \"price\": 205.99,\r\n            \"name\": \"Alvejante\",\r\n            \"quantity\": 5,\r\n            \"sku\": \"ALV7878\",\r\n            \"categoriesArray\": [5]\r\n        }\r\n    ]\r\n}"
 						},
 						"url": {
 							"raw": "http://{{ip}}/api/products/bulk-store",
@@ -217,7 +217,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"price\": 15.99,\r\n    \"name\": \"Bed\",\r\n    \"quantity\": 5,\r\n    \"sku\": \"bed\"\r\n}"
+							"raw": "{\r\n    \"price\": 15.99,\r\n    \"name\": \"Detergente\",\r\n    \"quantity\": 5,\r\n    \"sku\": \"det42432\",\r\n    \"categoriesArray\": [4, 5]\r\n}"
 						},
 						"url": {
 							"raw": "http://{{ip}}/api/products",
@@ -256,7 +256,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"products\": [\r\n        {\r\n            \"id\": 1,\r\n            \"price\": 150.19,\r\n            \"name\": \"Fryer\",\r\n            \"quantity\": 120,\r\n            \"sku\": \"fryer\"\r\n        },\r\n        {\r\n            \"id\": 2,\r\n            \"price\": 305.99,\r\n            \"name\": \"Fridge\",\r\n            \"quantity\": 51,\r\n            \"sku\": \"fridge\"\r\n        }\r\n    ]\r\n}"
+							"raw": "{\r\n    \"products\": [\r\n        {\r\n            \"id\": 1,\r\n            \"price\": 150.19,\r\n            \"name\": \"Detergente azul\",\r\n            \"quantity\": 120,\r\n            \"sku\": \"detazul77\",\r\n            \"categoriesArray\": [5,6]\r\n        },\r\n        {\r\n            \"id\": 2,\r\n            \"price\": 305.99,\r\n            \"name\": \"Detergente a\",\r\n            \"quantity\": 51,\r\n            \"sku\": \"det7878\",\r\n            \"categoriesArray\": [4,5,6]\r\n        }\r\n    ]\r\n}"
 						},
 						"url": {
 							"raw": "http://{{ip}}/api/products/bulk-update",
@@ -296,10 +296,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"price\": 15.19,\r\n    \"name\": \"Fryer\",\r\n    \"quantity\": 150,\r\n    \"sku\": \"fryr\"\r\n}"
+							"raw": "{\r\n    \"price\": 25,\r\n    \"name\": \"Detergente\",\r\n    \"quantity\": 215,\r\n    \"categoriesArray\": [4,5]\r\n\r\n}"
 						},
 						"url": {
-							"raw": "http://{{ip}}/api/products/1",
+							"raw": "http://{{ip}}/api/products/12",
 							"protocol": "http",
 							"host": [
 								"{{ip}}"
@@ -307,7 +307,7 @@
 							"path": [
 								"api",
 								"products",
-								"1"
+								"12"
 							]
 						}
 					},
@@ -344,6 +344,197 @@
 								"api",
 								"products",
 								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Index",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://{{ip}}/api/categories",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"path": [
+								"api",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://{{ip}}/api/categories/1",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"path": [
+								"api",
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Automotivo\"\r\n}"
+						},
+						"url": {
+							"raw": "http://{{ip}}/api/categories",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"path": [
+								"api",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Peças de Computador\"\r\n}"
+						},
+						"url": {
+							"raw": "http://{{ip}}/api/categories/11",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"path": [
+								"api",
+								"categories",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://{{ip}}/api/categories/11",
+							"protocol": "http",
+							"host": [
+								"{{ip}}"
+							],
+							"path": [
+								"api",
+								"categories",
+								"11"
 							]
 						}
 					},
@@ -586,6 +777,10 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Company",
+			"item": []
 		}
 	]
 }

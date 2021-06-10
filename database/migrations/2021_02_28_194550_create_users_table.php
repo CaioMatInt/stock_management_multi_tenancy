@@ -22,6 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->unsignedBigInteger('company_id')->index()->nullable();
             $table->foreign('company_id')->references('id')->on('companies');
+            $table->unsignedBigInteger('address_id')->index()->nullable();
+            $table->foreign('address_id')->references('id')->on('addresses');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
