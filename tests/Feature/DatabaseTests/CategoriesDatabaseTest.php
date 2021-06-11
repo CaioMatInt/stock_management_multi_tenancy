@@ -1,10 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use \Illuminate\Support\Facades\DB;
 use \Tests\Functions\DatabaseTestingFunctions;
-
-
 
 beforeEach(function () {
     $this->databaseTestingFunctions = resolve(DatabaseTestingFunctions::class);
@@ -15,14 +11,8 @@ afterEach(function () {
 
 
 
-test('companies table has correct fields and properties', function () {
+test('categories table has correct fields and properties', function () {
     $columnsCorrectProperties = [
-        [
-            'column_name' => 'name',
-            'data_type' => 'character varying',
-            'character_maximum_length' => 255,
-            'is_nullable' => 'NO'
-        ],
         [
             'column_name' => 'created_at',
             'data_type' => 'timestamp without time zone',
@@ -41,9 +31,33 @@ test('companies table has correct fields and properties', function () {
             'character_maximum_length' => null,
             'is_nullable' => 'YES'
         ],
+        [
+            'column_name' => 'name',
+            'data_type' => 'character varying',
+            'character_maximum_length' => 255,
+            'is_nullable' => 'NO'
+        ],
+        [
+            'column_name' => 'category_id',
+            'data_type' => 'bigint',
+            'character_maximum_length' => null,
+            'is_nullable' => 'YES'
+        ],
+        [
+            'column_name' => 'user_id',
+            'data_type' => 'bigint',
+            'character_maximum_length' => null,
+            'is_nullable' => 'NO'
+        ],
+        [
+            'column_name' => 'company_id',
+            'data_type' => 'bigint',
+            'character_maximum_length' => null,
+            'is_nullable' => 'NO'
+        ]
     ];
 
-    $errorMessage = $this->databaseTestingFunctions->compareArrayOfTablePropertiesToTablePropertiesOfCreatedTableInDatabase('companies' , $columnsCorrectProperties);
+    $errorMessage = $this->databaseTestingFunctions->compareArrayOfTablePropertiesToTablePropertiesOfCreatedTableInDatabase('categories' , $columnsCorrectProperties);
 
     if ($errorMessage) {
         throw new Exception($errorMessage);

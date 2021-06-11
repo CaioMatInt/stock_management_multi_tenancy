@@ -4,48 +4,72 @@ namespace Tests\Feature;
 
 use App\Models\Company;
 use App\Models\User;
-use App\Repositories\Contracts\CompanyRepositoryInterface;
-use Illuminate\Support\Facades\DB;
 
 beforeEach(function () {
-
-    $this->companyRepository = resolve(CompanyRepositoryInterface::class);
     $this->faker = resolve(\Faker\Provider\pt_BR\Company::class);
-    $this->companyFactory = Company::factory();
-    //Need a Refactor to load a admin user
-    $this->user = User::first();
+    $this->company = Company::factory()->create();
+    $this->user = User::factory()->create();
 });
 
 afterEach(function () {
-
 });
 
-it('it can get all companies by route', function () {
-    $response = $this->actingAs($this->user)->get(route('companies.index'));
+it('should be authenticated to list companies by route', function () {
+    $response = $this->get(route('companies.index'));
+    $response->assertRedirect('/api/login');
+});
+
+it('can get all companies by route', function () {
+    $response = $this->actingAs(User::factory()->create())->get(route('companies.index'));
     $response->assertStatus(200)->assertJson(['success' => 'true']);
 });
 
-it('it can get a company by route', function () {
-    $company = $this->companyFactory->create();
-    $response = $this->actingAs($this->user)->get(route('companies.show', $company->id));
+it('should by authenticated to show a company by route', function () {
+    $company = Company::factory()->create();
+    $response = $this->get(route('companies.show', $company->id));
+    $response->assertRedirect('/api/login');
+});
+
+it('can get a company by route', function () {
+    $company = Company::factory()->create();
+    $response = $this->actingAs(User::factory()->create())->get(route('companies.show', $company->id));
     $response->assertStatus(200)->assertJson(['success' => 'true']);
 });
 
-test('it can create a company by route', function () {
+it('should by authenticated to create a company by route', function () {
     $prepare['name'] =  $this->faker->company();
-    $response = $this->actingAs($this->user)->post(route('companies.store'), $prepare);
+    $response = $this->post(route('companies.store'), $prepare);
+    $response->assertRedirect('/api/login');
+});
+
+it('can create a company by route', function () {
+    $prepare['name'] =  $this->faker->company();
+    $response = $this->actingAs(User::factory()->create())->post(route('companies.store'), $prepare);
     $response->assertStatus(200)->assertJson(['success' => 'true']);
 });
 
-test('it can update a company by route', function () {
-    $companyRandomId = $this->companyRepository->getARandomRowId();
+it('should by authenticated to update a company by route', function () {
+    $company = Company::factory()->create();
     $prepare['name'] = $this->faker->company();
-    $response = $this->actingAs($this->user)->patch(route('companies.update', $companyRandomId), $prepare);
+    $response = $this->patch(route('companies.update', $company->id), $prepare);
+    $response->assertRedirect('/api/login');
+});
+
+it('can update a company by route', function () {
+    $company = Company::factory()->create();
+    $prepare['name'] = $this->faker->company();
+    $response = $this->actingAs(User::factory()->create())->patch(route('companies.update', $company->id), $prepare);
     $response->assertStatus(200)->assertJson(['success' => 'true']);
 });
 
-test('it can delete a company by route', function () {
-    $companyRandomId = $this->companyRepository->getARandomRowId();
-    $response = $this->actingAs($this->user)->delete(route('companies.destroy', $companyRandomId));
+it('should by authenticated to delete a company by route', function () {
+    $company = Company::factory()->create();
+    $response = $this->delete(route('companies.destroy', $company->id));
+    $response->assertRedirect('/api/login');
+});
+
+it('can delete a company by route', function () {
+    $company = Company::factory()->create();
+    $response = $this->actingAs(User::factory()->create())->delete(route('companies.destroy', $company->id));
     $response->assertStatus(200)->assertJson(['success' => 'true']);
 });

@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('sku')->unique();
             $table->string('image_path')->nullable();
-            $table->decimal('price', 10,2);
+            $table->unsignedBigInteger('price');
             $table->integer('quantity');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');

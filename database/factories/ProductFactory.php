@@ -32,7 +32,7 @@ class ProductFactory extends Factory
         return [
             'name' => $this->faker->word(),
             'sku' => $this->faker->bothify('???######'),
-            'price' => $this->faker->randomFloat(5),
+            'price' => $this->faker->randomNumber(5),
             'quantity' => $this->faker->randomNumber(3),
             'user_id' => $userRepository->getARandomRowId(),
             'company_id' => $companyRepository->getARandomRowId(),

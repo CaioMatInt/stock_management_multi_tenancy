@@ -15,12 +15,18 @@ afterEach(function () {
 
 
 
-test('companies table has correct fields and properties', function () {
+test('states table has correct fields and properties', function () {
     $columnsCorrectProperties = [
         [
             'column_name' => 'name',
             'data_type' => 'character varying',
             'character_maximum_length' => 255,
+            'is_nullable' => 'NO'
+        ],
+        [
+            'column_name' => 'initials',
+            'data_type' => 'character varying',
+            'character_maximum_length' => 2,
             'is_nullable' => 'NO'
         ],
         [
@@ -43,7 +49,7 @@ test('companies table has correct fields and properties', function () {
         ],
     ];
 
-    $errorMessage = $this->databaseTestingFunctions->compareArrayOfTablePropertiesToTablePropertiesOfCreatedTableInDatabase('companies' , $columnsCorrectProperties);
+    $errorMessage = $this->databaseTestingFunctions->compareArrayOfTablePropertiesToTablePropertiesOfCreatedTableInDatabase('states' , $columnsCorrectProperties);
 
     if ($errorMessage) {
         throw new Exception($errorMessage);

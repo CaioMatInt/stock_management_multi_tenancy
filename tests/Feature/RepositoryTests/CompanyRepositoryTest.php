@@ -3,16 +3,11 @@
 namespace Tests\Feature;
 
 use App\Models\Company;
-use App\Models\User;
 use App\Repositories\Contracts\CompanyRepositoryInterface;
-use Illuminate\Support\Facades\DB;
 
 beforeEach(function () {
     $this->companyRepository = resolve(CompanyRepositoryInterface::class);
     $this->faker = resolve(\Faker\Provider\pt_BR\Company::class);
-    $this->companyFactory = Company::factory();
-    //Need a Refactor to load a admin user
-    $this->user = User::first();
 });
 
 afterEach(function () {
@@ -37,14 +32,18 @@ test('it can get a random company', function () {
 });
 
 test('it can get all companies', function () {
-    $company = $this->companyRepository->getAll();
-    $this->assertTrue(!$company->isEmpty());
+    $companies = $this->companyRepository->getAll();
+    foreach($companies as $company){
+        expect($company)->toBeInstanceOf(Company::class);
+    }
 });
 
 
 test('it can get all companies paginated', function () {
-    $company = $this->companyRepository->getAllPaginated(3);
-    $this->assertTrue(!$company->isEmpty());
+    $companies = $this->companyRepository->getAllPaginated(3);
+    foreach($companies as $company){
+        expect($company)->toBeInstanceOf(Company::class);
+    }
 });
 
 test('it can find a company', function () {
@@ -59,7 +58,7 @@ test('it can count companies table', function () {
 });
 
 test('it can update a company', function () {
-    $company = $this->companyFactory->create();
+    $company = Company::factory()->create();
     $prepare['name'] = $this->faker->company();
     $updatedCompany = $this->companyRepository->update($company->id, $prepare);
     $this->assertTrue((collect($company)->diff($updatedCompany))->isNotEmpty());

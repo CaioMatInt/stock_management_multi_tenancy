@@ -24,5 +24,4 @@ test('company model has relationships', function () {
     $company = Company::factory()->create();
     User::factory()->withCompanyId($company->id)->create();
     $this->assertInstanceOf(User::class, $company->users[0]);
-
 });
