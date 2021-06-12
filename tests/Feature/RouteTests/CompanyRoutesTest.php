@@ -2,9 +2,10 @@
 
 use App\Models\Company;
 use App\Models\User;
+use Illuminate\Support\Str;
+
 
 beforeEach(function () {
-    $this->faker = resolve(\Faker\Provider\pt_BR\Company::class);
     $this->company = Company::factory()->create();
     $this->user = User::factory()->create();
 });
@@ -35,13 +36,13 @@ it('can get a company by route', function () {
 });
 
 it('should by authenticated to create a company by route', function () {
-    $prepare['name'] =  $this->faker->company();
+    $prepare['name'] =  Str::random(10) . ' Ltda.';
     $response = $this->post(route('companies.store'), $prepare);
     $response->assertRedirect('/api/login');
 });
 
 it('can create a company by route', function () {
-    $prepare['name'] =  $this->faker->company();
+    $prepare['name'] =  Str::random(10) . ' Ltda.';
     $response = $this->actingAs(User::factory()->create())->post(route('companies.store'), $prepare);
     $response->assertStatus(200)->assertJson(['success' => 'true']);
     $this->assertDatabaseHas('companies', [
@@ -51,14 +52,14 @@ it('can create a company by route', function () {
 
 it('should by authenticated to update a company by route', function () {
     $company = Company::factory()->create();
-    $prepare['name'] = $this->faker->company();
+    $prepare['name'] = Str::random(10) . ' Ltda.';
     $response = $this->patch(route('companies.update', $company->id), $prepare);
     $response->assertRedirect('/api/login');
 });
 
 it('can update a company by route', function () {
     $company = Company::factory()->create();
-    $prepare['name'] = $this->faker->company();
+    $prepare['name'] = Str::random(10) . ' Ltda.';
     $response = $this->actingAs(User::factory()->create())->patch(route('companies.update', $company->id), $prepare);
     $response->assertStatus(200)->assertJson(['success' => 'true']);
     $this->assertDatabaseMissing('companies', [

@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Company;
 use App\Models\Product;
+use App\Models\User;
 use App\Repositories\Contracts\CompanyRepositoryInterface;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -26,16 +28,16 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
-        $companyRepository = resolve(CompanyRepositoryInterface::class);
-        $userRepository = resolve(UserRepositoryInterface::class);
+        $company = Company::factory()->create();
+        $user = User::factory()->create();
 
         return [
             'name' => $this->faker->word(),
             'sku' => $this->faker->bothify('???######'),
             'price' => $this->faker->randomNumber(5),
             'quantity' => $this->faker->randomNumber(3),
-            'user_id' => $userRepository->getARandomRowId(),
-            'company_id' => $companyRepository->getARandomRowId(),
+            'user_id' => $user->id,
+            'company_id' => $company->id,
             'created_at' => Carbon::today()->subDays(rand(0, 365))
         ];
     }

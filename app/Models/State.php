@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class State extends Model
 {
     use SoftDeletes;
+    use HasFactory;
     public $timestamps = true;
 
     protected $fillable = [
@@ -24,4 +25,5 @@ class State extends Model
     {
         return $this->hasMany(Address::class);
     }
+
 }
