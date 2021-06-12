@@ -25,10 +25,9 @@ abstract class AbstractRepository
         return $this->model::inRandomOrder()->take(1)->first();
     }
 
-    public function getAndSelectSpecificFields(array $fields, array $params){
+    public function getAndSelectSpecificFields(array $fields, array $params = []){
         if($params){
             return $this->model->select($fields)->where($params)->get();
-
         }
         return $this->model->select($fields)->get();
     }
@@ -61,7 +60,6 @@ abstract class AbstractRepository
     public function getMultipleWhereAndMultipleConditional(array $params)
     {
         $builder = $this->model;
-
         foreach($params as $param){
             $builder = $builder->where($param['field'], $param['conditional'] , $param['value']);
         }
@@ -75,7 +73,6 @@ abstract class AbstractRepository
             abort(404);
         }
         return $model;
-
     }
 
     public function findWhere(string $field, $value)
@@ -90,7 +87,6 @@ abstract class AbstractRepository
     public function findMultipleWhere(array $params)
     {
         $builder = $this->model;
-
         foreach($params as $param){
             $builder->where($param['field'], $param['value']);
         }
@@ -99,18 +95,14 @@ abstract class AbstractRepository
         if(is_null($model)){
             abort(404);
         }
-
         return $model;
     }
 
     public function findAndSelectSpecificFields(array $fields, $id){
-
         $model = $this->model->select($fields)->find($id);
-
         if(is_null($model)){
             abort(404);
         }
-
         return $model;
     }
 
@@ -149,7 +141,7 @@ abstract class AbstractRepository
     }
 
     public function count(){
-        return $this->model->get()->count();
+        return $this->model->count();
     }
 
 }

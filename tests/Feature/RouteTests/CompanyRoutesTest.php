@@ -1,7 +1,5 @@
 <?php
 
-namespace Tests\Feature;
-
 use App\Models\Company;
 use App\Models\User;
 
@@ -46,6 +44,9 @@ it('can create a company by route', function () {
     $prepare['name'] =  $this->faker->company();
     $response = $this->actingAs(User::factory()->create())->post(route('companies.store'), $prepare);
     $response->assertStatus(200)->assertJson(['success' => 'true']);
+    $this->assertDatabaseHas('companies', [
+        'name' => $prepare['name']
+    ]);
 });
 
 it('should by authenticated to update a company by route', function () {
@@ -60,6 +61,10 @@ it('can update a company by route', function () {
     $prepare['name'] = $this->faker->company();
     $response = $this->actingAs(User::factory()->create())->patch(route('companies.update', $company->id), $prepare);
     $response->assertStatus(200)->assertJson(['success' => 'true']);
+    $this->assertDatabaseMissing('companies', [
+        'name' => $company->name
+    ]);
+
 });
 
 it('should by authenticated to delete a company by route', function () {
@@ -72,4 +77,7 @@ it('can delete a company by route', function () {
     $company = Company::factory()->create();
     $response = $this->actingAs(User::factory()->create())->delete(route('companies.destroy', $company->id));
     $response->assertStatus(200)->assertJson(['success' => 'true']);
+    $this->assertSoftDeleted('companies', [
+        'name' => $company->name
+    ]);
 });

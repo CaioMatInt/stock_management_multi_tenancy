@@ -1,10 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use \Illuminate\Support\Facades\DB;
 use \Tests\Functions\DatabaseTestingFunctions;
-
-
 
 beforeEach(function () {
     $this->databaseTestingFunctions = resolve(DatabaseTestingFunctions::class);
@@ -12,8 +8,6 @@ beforeEach(function () {
 
 afterEach(function () {
 });
-
-
 
 test('addresses table has correct fields and properties', function () {
 
