@@ -27,7 +27,6 @@ class CategoryFactory extends Factory
     {
         $company = Company::factory()->create();
         $user = User::factory()->create();
-        $product = Product::factory()->create();
 
         return [
             'name' => $this->faker->word,
@@ -36,12 +35,4 @@ class CategoryFactory extends Factory
         ];
     }
 
-    public function setStateId($state_id)
-    {
-        return $this->state(function ($attributes) use ($state_id) {
-            return [
-                'state_id' => $state_id
-            ];
-        });
-    }
 }

@@ -49,7 +49,6 @@ class UserFactory extends Factory
         });
     }
 
-
     public function withARandomCompanyId()
     {
         return $this->state(function ($attributes) {
@@ -60,13 +59,4 @@ class UserFactory extends Factory
         });
     }
 
-    public function withCompanyId($company_id)
-    {
-
-        return $this->state(function ($attributes) use ($company_id) {
-            return [
-                'company_id' => $company_id
-            ];
-        });
-    }
 }

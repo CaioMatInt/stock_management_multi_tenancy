@@ -6,11 +6,6 @@ beforeEach(function () {
     $this->databaseTestingFunctions = resolve(DatabaseTestingFunctions::class);
 });
 
-afterEach(function () {
-});
-
-
-
 test('categories table has correct fields and properties', function () {
     $columnsCorrectProperties = [
         [

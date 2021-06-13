@@ -33,7 +33,6 @@ class CompanyController extends Controller
 
     public function store(StoreCompanyRequest $request)
     {
-
         DB::beginTransaction();
 
         try {

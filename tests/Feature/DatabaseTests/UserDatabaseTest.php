@@ -10,11 +10,6 @@ beforeEach(function () {
     $this->databaseTestingFunctions = resolve(DatabaseTestingFunctions::class);
 });
 
-afterEach(function () {
-});
-
-
-
 test('users table has correct fields and properties', function () {
     $columnsCorrectProperties = [
         [

@@ -19,6 +19,9 @@ test('state model exists', function () {
 
 test('state model has correct relationship(s)', function () {
     $state = State::factory()->setFakeNameAndAbbreviation()->create();
-    Address::factory()->withStateId($state->id)->create();
-    $this->assertInstanceOf(Address::class, $state->load('addresses')->addresses[0]);
+    Address::factory()->create(['state_id' => $state->id]);
+    $state->load('addresses');
+    foreach($state->addresses as $address){
+        expect($address)->toBeInstanceOf(Address::class);
+    }
 });

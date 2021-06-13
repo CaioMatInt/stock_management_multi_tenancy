@@ -6,8 +6,7 @@ beforeEach(function () {
     $this->databaseTestingFunctions = resolve(DatabaseTestingFunctions::class);
 });
 
-afterEach(function () {
-});
+
 
 test('addresses table has correct fields and properties', function () {
 

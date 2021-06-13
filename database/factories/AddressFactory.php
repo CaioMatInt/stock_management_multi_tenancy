@@ -29,13 +29,4 @@ class AddressFactory extends Factory
             'state_id' => $state->id
         ];
     }
-
-    public function withStateId($state_id)
-    {
-        return $this->state(function ($attributes) use ($state_id) {
-            return [
-                'state_id' => $state_id
-            ];
-        });
-    }
 }

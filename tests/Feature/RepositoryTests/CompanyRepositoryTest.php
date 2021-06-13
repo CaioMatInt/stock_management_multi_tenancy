@@ -3,11 +3,9 @@
 use App\Models\Company;
 use App\Repositories\Contracts\CompanyRepositoryInterface;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Str;
 
 beforeEach(function () {
     $this->companyRepository = resolve(CompanyRepositoryInterface::class);
-    $this->faker = resolve(\Faker\Provider\pt_BR\Company::class);
 });
 
 afterEach(function () {
@@ -15,13 +13,15 @@ afterEach(function () {
 });
 
 test('it can get a random company id', function () {
+    Company::factory()->create();
     $company = $this->companyRepository->getARandomRowId();
     expect($company)->toBeInt();
 });
 
 
 test('it can create a company', function () {
-    $company = $this->companyRepository->create(['name' => Str::random(10) . ' Ltda.']);
+    $company = Company::factory()->make();
+    $company = $this->companyRepository->create($company->toArray());
     expect($company)->toBeInstanceOf(Company::class);
     $this->assertDatabaseHas('companies', [
         'name' => $company->name
@@ -30,6 +30,7 @@ test('it can create a company', function () {
 
 
 test('it can get a random company', function () {
+    Company::factory()->create();
     $company = $this->companyRepository->getARandomRow();
     expect($company)->toBeInstanceOf(Company::class);
 });
@@ -65,7 +66,7 @@ test('it can count companies table', function () {
 
 test('it can update a company', function () {
     $company = Company::factory()->create();
-    $prepare['name'] = Str::random(10) . ' Ltda.';
+    $prepare['name'] = Company::factory()->make()->name;
     $updatedCompany = $this->companyRepository->update($company->id, $prepare);
     $this->assertTrue((collect($company)->diff($updatedCompany))->isNotEmpty());
     $this->assertDatabaseMissing('companies', [

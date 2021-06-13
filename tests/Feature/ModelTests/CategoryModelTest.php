@@ -22,7 +22,9 @@ test('category model has correct relationship(s)', function () {
     $categoryId = $category->id;
     Product::factory()->create()->categories()->sync($categoryId);
     $category->load(['products', 'company', 'user']);
-    $this->assertInstanceOf(Product::class, $category->products[0]);
+    foreach($category->products as $product){
+        expect($product)->toBeInstanceOf(Product::class);
+    }
     $this->assertInstanceOf(Company::class, $category->company);
     $this->assertInstanceOf(User::class, $category->user);
 });

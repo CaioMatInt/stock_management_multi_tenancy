@@ -2,16 +2,7 @@
 
 use App\Models\Company;
 use App\Models\User;
-use Illuminate\Support\Str;
 
-
-beforeEach(function () {
-    $this->company = Company::factory()->create();
-    $this->user = User::factory()->create();
-});
-
-afterEach(function () {
-});
 
 it('should be authenticated to list companies by route', function () {
     $response = $this->get(route('companies.index'));
@@ -36,30 +27,30 @@ it('can get a company by route', function () {
 });
 
 it('should by authenticated to create a company by route', function () {
-    $prepare['name'] =  Str::random(10) . ' Ltda.';
-    $response = $this->post(route('companies.store'), $prepare);
+    $company = Company::factory()->make();
+    $response = $this->post(route('companies.store'), $company->toArray());
     $response->assertRedirect('/api/login');
 });
 
 it('can create a company by route', function () {
-    $prepare['name'] =  Str::random(10) . ' Ltda.';
-    $response = $this->actingAs(User::factory()->create())->post(route('companies.store'), $prepare);
+    $company = Company::factory()->make();
+    $response = $this->actingAs(User::factory()->create())->post(route('companies.store'), $company->toArray());
     $response->assertStatus(200)->assertJson(['success' => 'true']);
     $this->assertDatabaseHas('companies', [
-        'name' => $prepare['name']
+        'name' => $company->name
     ]);
 });
 
 it('should by authenticated to update a company by route', function () {
     $company = Company::factory()->create();
-    $prepare['name'] = Str::random(10) . ' Ltda.';
+    $prepare['name'] = Company::factory()->make()->name;
     $response = $this->patch(route('companies.update', $company->id), $prepare);
     $response->assertRedirect('/api/login');
 });
 
 it('can update a company by route', function () {
     $company = Company::factory()->create();
-    $prepare['name'] = Str::random(10) . ' Ltda.';
+    $prepare['name'] = Company::factory()->make()->name;
     $response = $this->actingAs(User::factory()->create())->patch(route('companies.update', $company->id), $prepare);
     $response->assertStatus(200)->assertJson(['success' => 'true']);
     $this->assertDatabaseMissing('companies', [
@@ -82,3 +73,4 @@ it('can delete a company by route', function () {
         'name' => $company->name
     ]);
 });
+

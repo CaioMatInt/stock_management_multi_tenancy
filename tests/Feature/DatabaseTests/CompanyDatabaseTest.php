@@ -8,14 +8,7 @@ use \Tests\Functions\DatabaseTestingFunctions;
 
 beforeEach(function () {
     $this->databaseTestingFunctions = resolve(DatabaseTestingFunctions::class);
-});
-
-afterEach(function () {
-});
-
-
-
-test('companies table has correct fields and properties', function () {
+});test('companies table has correct fields and properties', function () {
     $columnsCorrectProperties = [
         [
             'column_name' => 'name',

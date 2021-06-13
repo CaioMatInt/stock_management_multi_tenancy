@@ -17,7 +17,7 @@ test('address model has correct fillables', function () {
 });
 
 test('address model has correct relationship(s)', function () {
-    $address = Address::factory()->create();
+    $address = Address::factory()->create(['state_id' => 1]);
     $address->load('state');
     $this->assertInstanceOf(State::class, $address->state);
 });

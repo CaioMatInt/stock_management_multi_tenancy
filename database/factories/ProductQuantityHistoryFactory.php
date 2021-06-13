@@ -40,40 +40,4 @@ class ProductQuantityHistoryFactory extends Factory
         ];
     }
 
-    public function setProductId($product_id)
-    {
-        return $this->state(function ($attributes) use ($product_id) {
-            return [
-                'product_id' => $product_id
-            ];
-        });
-    }
-
-    public function setQuantity($quantity)
-    {
-        return $this->state(function ($attributes) use ($quantity) {
-            return [
-                'quantity' => $quantity
-            ];
-        });
-    }
-
-    public function setUserId($user_id)
-    {
-        return $this->state(function ($attributes) use ($user_id) {
-            return [
-                'user_id' => $user_id
-            ];
-        });
-    }
-
-    public function setCompanyId($company_id)
-    {
-        return $this->state(function ($attributes) use ($company_id) {
-            return [
-                'company_id' => $company_id
-            ];
-        });
-    }
-
 }

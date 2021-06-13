@@ -10,11 +10,6 @@ beforeEach(function () {
     $this->databaseTestingFunctions = resolve(DatabaseTestingFunctions::class);
 });
 
-afterEach(function () {
-});
-
-
-
 test('product_quantity_history table has correct fields and properties', function () {
     $columnsCorrectProperties = [
         [

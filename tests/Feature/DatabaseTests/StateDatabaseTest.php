@@ -10,11 +10,6 @@ beforeEach(function () {
     $this->databaseTestingFunctions = resolve(DatabaseTestingFunctions::class);
 });
 
-afterEach(function () {
-});
-
-
-
 test('states table has correct fields and properties', function () {
     $columnsCorrectProperties = [
         [

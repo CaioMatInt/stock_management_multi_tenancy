@@ -17,7 +17,10 @@ test('company model has correct fillables', function () {
 
 test('company model has users relationship', function () {
     $company = Company::factory()->create();
-    User::factory()->withCompanyId($company->id)->create();
+    User::factory()->create(['company_id' => $company->id]);
     $company->load('users');
-    $this->assertInstanceOf(User::class, $company->users[0]);
+
+    foreach($company->users as $user){
+        expect($user)->toBeInstanceOf(User::class);
+    }
 });
