@@ -18,8 +18,7 @@ class ProductRepository extends AbstractRepository implements ProductRepositoryI
     {
         $data['user_id'] = auth()->user()->id;
         $data['company_id'] = auth()->user()->company_id;
-        $createdProduct = $this->model->create($data);
-
+        $createdProduct = parent::create($data);
         if($data['categoriesArray']) {
             $createdProduct->categories()->sync($data['categoriesArray']);
         }
@@ -30,8 +29,7 @@ class ProductRepository extends AbstractRepository implements ProductRepositoryI
     {
         $data['user_id'] = $userId;
         $data['company_id'] = $companyId;
-        $createdProduct = $this->model->create($data);
-
+        $createdProduct = parent::create($data);
         if($data['categoriesArray']) {
             $createdProduct->categories()->sync($data['categoriesArray']);
         }
@@ -42,27 +40,20 @@ class ProductRepository extends AbstractRepository implements ProductRepositoryI
     {
         $data['user_id'] = auth()->user()->id;
         $data['company_id'] = auth()->user()->company_id;
-        $model = $this->model->find($id);
-        if(is_null($model)){
-            return $model;
-        }
-        $model->update($data);
-
+        $model = parent::update($id, $data);
         if($data['categoriesArray']) {
             $model->categories()->sync($data['categoriesArray']);
         }
         return $model;
     }
 
-    public function updateByJob(int $productId, array $data, int $userId)
+    public function updateByJob(int $id, array $data, int $userId)
     {
         $data['user_id'] = $userId;
         if(isset($data['company_id'])) {
             array_unshift($data['company_id']);
         }
-        $model = $this->model->find($productId);
-        $model->update($data);
-
+        $model = parent::update($id, $data);
         if($data['categoriesArray']) {
             $model->categories()->sync($data['categoriesArray']);
         }

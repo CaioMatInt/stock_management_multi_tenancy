@@ -16,12 +16,12 @@ class UserBuilder
         $this->attributes[$attribute] = $value;
     }
 
-    public function create(int $quantity = 1)
+    public function create(int $quantity = null)
     {
         return User::factory($quantity)->create($this->attributes);
     }
 
-    public function make(int $quantity = 1)
+    public function make(int $quantity = null)
     {
         return User::factory($quantity)->make($this->attributes);
     }

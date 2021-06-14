@@ -18,18 +18,13 @@ class CategoryRepository extends AbstractRepository implements CategoryRepositor
     {
         $data['user_id'] = auth()->user()->id;
         $data['company_id'] = auth()->user()->company_id;
-        return $this->model->create($data);
+        return parent::create($data);
     }
 
     public function update(int $id,array $data)
     {
         $data['user_id'] = auth()->user()->id;
         $data['company_id'] = auth()->user()->company_id;
-        $model = $this->model->find($id);
-        if(is_null($model)){
-            return $model;
-        }
-        $model->update($data);
-        return $model;
+        return parent::update($id, $data);
     }
 }
