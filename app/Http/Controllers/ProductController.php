@@ -92,9 +92,9 @@ class ProductController extends Controller
             $responseData = $this->productRepository->find($id);
             return response()->success(200, null, $responseData);
         }catch(\Exception $e){
-            return response()->error($e->getStatusCode(), $e->getMessage());
+            return response()->error($e->getCode(), $e->getMessage());
         }catch(\Throwable $e){
-            return response()->error($e->getStatusCode(), $e->getMessage());
+            return response()->error($e->getCode(), $e->getMessage());
         }
     }
 

@@ -13,19 +13,23 @@ abstract class AbstractRepository
         $this->model = $this->resolveModel();
     }
 
-    protected function resolveModel(){
+    protected function resolveModel()
+    {
         return app($this->model);
     }
 
-    public function getARandomRowId(){
+    public function getARandomRowId()
+    {
         return $this->model::inRandomOrder()->take(1)->first()->id;
     }
 
-    public function getARandomRow(){
+    public function getARandomRow()
+    {
         return $this->model::inRandomOrder()->take(1)->first();
     }
 
-    public function getAndSelectSpecificFields(array $fields, array $params = []){
+    public function getAndSelectSpecificFields(array $fields, array $params = [])
+    {
         if($params){
             return $this->model->select($fields)->where($params)->get();
         }
@@ -70,7 +74,7 @@ abstract class AbstractRepository
     {
         $model = $this->model->find($id);
         if(is_null($model)){
-            abort(404);
+            throw new \Error($this->getResourceName() . ' not found', 404);
         }
         return $model;
     }
@@ -79,7 +83,7 @@ abstract class AbstractRepository
     {
         $model = $this->model->where($field, $value)->first();
         if(is_null($model)){
-            abort(404);
+            throw new \Error($this->getResourceName() . ' not found', 404);
         }
         return $model;
     }
@@ -93,15 +97,16 @@ abstract class AbstractRepository
 
         $model = $builder->first();
         if(is_null($model)){
-            abort(404);
+            throw new \Error($this->getResourceName() . ' not found', 404);
         }
         return $model;
     }
 
-    public function findAndSelectSpecificFields(array $fields, $id){
+    public function findAndSelectSpecificFields(array $fields, $id)
+    {
         $model = $this->model->select($fields)->find($id);
         if(is_null($model)){
-            abort(404);
+            throw new \Error($this->getResourceName() . ' not found', 404);
         }
         return $model;
     }
@@ -111,7 +116,7 @@ abstract class AbstractRepository
     {
         $model = $this->model->with($relationships)->find($id);
         if(is_null($model)){
-            abort(404);
+            throw new \Error($this->getResourceName() . ' not found', 404);
         }
         return $model;
     }
@@ -125,7 +130,7 @@ abstract class AbstractRepository
     {
         $model = $this->model->find($id);
         if(is_null($model)){
-            abort(404);
+            throw new \Error($this->getResourceName() . ' not found', 404);
         }
         $model->update($data);
         return $model;
@@ -135,13 +140,19 @@ abstract class AbstractRepository
     {
         $model = $this->model->find($id);
         if(is_null($model)){
-            abort(404);
+            throw new \Error($this->getResourceName() . ' not found', 404);
         }
         return $model->delete();
     }
 
-    public function count(){
+    public function count()
+    {
         return $this->model->count();
     }
 
+    public function getResourceName()
+    {
+        $className = (new \ReflectionClass($this))->getShortName();
+        return str_replace("Repository", "", $className);
+    }
 }
