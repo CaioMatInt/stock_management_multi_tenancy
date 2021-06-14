@@ -36,10 +36,10 @@ interface AbstractRepositoryInterface
 
     public function getMultipleWhereAndMultipleConditional(array $params);
 
-    public function getARandomRowId();
+    public function getARandomRowId(): int;
 
     public function getARandomRow();
 
-
-
+    public function getResourceName(): string;
+    
 }

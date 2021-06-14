@@ -18,7 +18,7 @@ abstract class AbstractRepository
         return app($this->model);
     }
 
-    public function getARandomRowId()
+    public function getARandomRowId(): int
     {
         return $this->model::inRandomOrder()->take(1)->first()->id;
     }
@@ -150,7 +150,7 @@ abstract class AbstractRepository
         return $this->model->count();
     }
 
-    public function getResourceName()
+    public function getResourceName(): string
     {
         $className = (new \ReflectionClass($this))->getShortName();
         return str_replace("Repository", "", $className);
