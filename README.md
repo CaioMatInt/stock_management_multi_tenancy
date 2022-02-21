@@ -43,9 +43,9 @@ password: 123456
 
 This project is using PEST. To run tests, run on your terminal from the project's root folder: ./vendor/bin/pest
  
- ## TODO
+ ## Todo
 
-Adapt the code to PSR-12
-Finish tests
-TBD 
+- Adapt the code to PSR-12
+- Finish tests
+- TBD 
 
