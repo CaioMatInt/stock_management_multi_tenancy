@@ -16,7 +16,6 @@ This is a simple single database multi tenancy stock management system.
  - Run php artisan serve
  - If you are not using Redis, run php artisan queue:work in a separate terminal
  - Optional: Configure a local enviroment on your Postman App containing ip and token variables. Import the Postman Collection (postman/stock_management.postman_collection) to your Postman app.
- ![Image of postman](https://i.ibb.co/qBBF9G1/postman-local-enviroment.jpg)
 
 ## Database Diagram
 
