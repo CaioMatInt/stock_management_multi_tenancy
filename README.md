@@ -25,7 +25,7 @@ This is a simple single database multi tenancy stock management system.
 
 ## System Architecture
 
-![Image of System Architecture](https://i.ibb.co/XsBdk3R/system-architecture.jpg)
+![image](https://user-images.githubusercontent.com/40992883/178123101-c9fb1ecf-d56b-4237-b4cc-526d33aa79d3.png)
 
 ## Usage
 
